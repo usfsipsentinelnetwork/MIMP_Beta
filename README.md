@@ -45,7 +45,7 @@ Needed for workflows (b) - "de novo" & (c) "Sanger"
 ## a) MIMP "Quick & Dirty"
 -----------------------
 
-In order to run this pipeline, you should have your output from basecalling arranged into folders "barcode01" or "barcode01" through "barcode**" nad the following scripts in the folders, 
+In order to run this pipeline, you should have your output from basecalling arranged into folders "barcode01" or "barcode1" through "barcode**" and the following scripts in the folders, 
 
 MIMP "Quick & Dirty": output OTU table/ phyloseq object solely on alignment to the UNITE database.
 
@@ -88,27 +88,27 @@ This script does the following
 #### Options (and default values)
 
 		General
-			-p primer_pair='ITS1F4'				- the primer pair you want to use
-			-x skip_to_cut_adapt='F'			- whether to skip nanoplot & nanofilt and go straight to cutadapt
+			-p primer_pair='ITS1F4'	  - the primer pair you want to use
+			-x skip_to_cut_adapt='F'  - whether to skip nanoplot & nanofilt and go straight to cutadapt
 			-L session_log_file="[-p primer_pair].log" 
 				name of log file where you are keeping track of all the commands
 				you are running and with which parameters (automatically supplies
 				one based on primer pair)
 
 		NanoFilt Options
-			-q quality_cutoff=15	- the quality cutoff for nanofilt
-			-m min_length=200 	- the minimum length for nanofilt
-			-M max_length=2000	- the maximum read length for nanofilt
-			-c head_crop=50		- the number of leading bases for nanofilt to trim
+			-q quality_cutoff=15  - the quality cutoff for nanofilt
+			-m min_length=200     - the minimum length for nanofilt
+			-M max_length=2000    - the maximum read length for nanofilt
+			-c head_crop=50       - the number of leading bases for nanofilt to trim
 
 		CutAdapt Options
-			-e adapter_error=.1   	- adapter error rate
-			-o adapter_overlap=15	- the amount of overlap allowed
-			-x cpu_cores=8			- number of cores to use for cut adapt
+			-e adapter_error=.1    - adapter error rate
+			-o adapter_overlap=15  - the amount of overlap allowed
+			-x cpu_cores=8         - number of cores to use for cut adapt
 
 		NanoPlot Options
-			-N nanoplot_all='T'	- whether to make a nanoplot for all seqs combined
-			-n nanoplot_each='T'	- whether to make a nanoplot for each barcode
+			-N nanoplot_all='T'  - whether to make a nanoplot for all seqs combined
+			-n nanoplot_each='T' - whether to make a nanoplot for each barcode
 
 #### Output files:
 
@@ -133,21 +133,21 @@ This script does the following
 #### Options (* required) (= default)
 
 		General Options
-			-p (=primer_pair) 						- name of primer pair as it appears in primer_seqs.sh (Default 'ITS54')
-			-q (=quality_cutoff)					- the quality cutoff (as phred score) to filter initial sequences ((Default 10, corresponds to 90%)
-			-m minlen=300							- minimum length of seqs to filter initial sequences
-			-s skip_minimap - (Default 'F') can be used to skip the minimap step in combination with -S to skip the samtools summary of minimap step - note that skipping minimap but not samtools makes little sense unless you wanted to just do one step at a time; but the summary section will still run at the end to gather minimap output.
-			-S skip_samtools - (Default 'F') can be used in combination with -s to skip minimap and processing of minimap results. effectively, this function only gathers and summarizes minimap results.
+			-p (=primer_pair)    - name of primer pair as it appears in primer_seqs.sh (Default 'ITS54')
+			-q (=quality_cutoff) - the quality cutoff (as phred score) to filter initial sequences ((Default 10, corresponds to 90%)
+			-m minlen=300        - minimum length of seqs to filter initial sequences
+			-s skip_minimap      - (Default 'F') can be used to skip the minimap step in combination with -S to skip the samtools summary of minimap step - note that skipping minimap but not samtools makes little sense unless you wanted to just do one step at a time; but the summary section will still run at the end to gather minimap output.
+			-S skip_samtools     - (Default 'F') can be used in combination with -s to skip minimap and processing of minimap results. effectively, this function only gathers and summarizes minimap results.
 			-L session_log_file="[-p primer_pair].log" 
 				name of log file where you are keeping track of all the commands
 				you are running and with which parameters (automatically supplies
 				one based on primer pair)
 	
 		MiniMap2 Options
-			-d* (=database)							- the name and location of reference database file for taxonomic assignments (formatted as a fasta file)
-			-i infile='all_filt_reorient.fasta'		- name of input fasta file in each barcode folder
-			-b barcode_threads=4					- number of minimaps to run independently (total cpus = b * t)
-			-t minimap_threads=4					- number of minimap threads to tell minimap run in each minimap instance
+			-d* (=database)                      - the name and location of reference database file for taxonomic assignments (formatted as a fasta file)
+			-i infile='all_filt_reorient.fasta'  - name of input fasta file in each barcode folder
+			-b barcode_threads=4                 - number of minimaps to run independently (total cpus = b * t)
+			-t minimap_threads=4                 - number of minimap threads to tell minimap run in each minimap instance
 			-P minimap_path="/vol3/home/ec2-user/minimap2-2.24_x64-linux"
 
 #### Output files:
@@ -186,7 +186,7 @@ Uses preliminary quick and dirty minimap2 to create an OTU and taxon table to ma
 
 #### Options (* required)
 		1 [primer_pair] - the primer pair name
-		2 [db]			- the database (currently supports =UNITE and =SILVA)
+		2 [db]          - the database (currently supports =UNITE and =SILVA)
 		3 [outfilename] - name of .RData output file with phyloseq object
 		4 [silva_path]  - ***required if db=SILVA
 
