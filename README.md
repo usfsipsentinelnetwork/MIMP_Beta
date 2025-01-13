@@ -1,26 +1,22 @@
-# MIMP_Beta
- MinIon Metabarcoding Pipeline
+# MIMP_Beta: MinIon Metabarcoding Pipeline
 
-LAST UPDATED FEB 6 2024
+		LAST UPDATED FEB 6 2024
 
-++++++++++++++++++++++++++++++++++++++++++++
-++                                        ++
-++   MIMP: MinIon Metabarcoding Pipeline  ++
-++   ===================================  ++
-++                                        ++
-++      (C) Geoffrey Williams 2024        ++
-++                                        ++
-++++++++++++++++++++++++++++++++++++++++++++
+		++++++++++++++++++++++++++++++++++++++++++++
+		++                                        ++
+		++   MIMP: MinIon Metabarcoding Pipeline  ++
+		++   ===================================  ++
+		++                                        ++
+		++      (C) Geoffrey Williams 2024        ++
+		++                                        ++
+		++++++++++++++++++++++++++++++++++++++++++++
 
-+------------+
-|  I. About  |
-+------------+
+
+## I. About 
 
 MIMP (MinIon Metabarcoding Pipeline) features executable shell scripts to which one can pass arguments to augment a basic metabarcoding pipeline for processing multiplexed amplicon data from ONT MinIon, after basecalling. Currently the implementation is simple. MIMP supports two metabarcode amplicon pipelines a) "Quick & Dirty" and b) "De Novo" which respectively rely a) solely on alignment to the UNITE database or b) use preliminary UNITE alignments to inform within-taxon clustering (based on rarefied subsample of sequences) and re-alignment to resulting consensus sequences which can be BLASTed to a custom database (ie NCBI), for long-read amplicon metabarcoding. MIMP also supports c) processing amplicon data from single-sample libraries (MIMP "Sanger"). 
 
-+--------------------+
-|  II. Dependencies  |
-+--------------------+
+## II. Dependencies
 
 For Workflow (a) - "quick and dirty"
 ------------------------------------
@@ -44,46 +40,47 @@ Needed for workflows (b) - "de novo" & (c) "Sanger"
 * All of the above
 * Also needed: dnadist (from phylip - available as binary at usfsipsentinelnetwork/MinIon_Sanger_Beta)
 
-+------------------+
-|  III. Workflows  |
-+------------------+
+# III. Workflows 
 
-a) MIMP "Quick & Dirty"
+##a) MIMP "Quick & Dirty"
 -----------------------
 
 In order to run this pipeline, you should have your output from basecalling arranged into folders "barcode01" or "barcode01" through "barcode**" nad the following scripts in the folders, 
 
 MIMP "Quick & Dirty": output OTU table/ phyloseq object solely on alignment to the UNITE database.
 
-0. primer_seqs.sh
+###0. primer_seqs.sh
 
-	Usage: NA
+####Usage:
+		NA
 
-	Description: This is not a command to run; this file contains all the information about primers and primer sequences that you may want to select from using the command line call; this script can be edited to add additional information in the same format that it is set up for GNU BASH langauge.
+####Description:
+This is not a command to run; this file contains all the information about primers and primer sequences that you may want to select from using the command line call; this script can be edited to add additional information in the same format that it is set up for GNU BASH langauge.
 
-	Each primer set (F and R) is given a number; here is the format used to specify seq, rev comp seq, and length min and max parameters:
+Each primer set (F and R) is given a number; here is the format used to specify seq, rev comp seq, and length min and max parameters:
 
-	# ITS54
-	# ITS5 GGAAGTAAAAGTCGTAACAAGG
-	# ITS5(revcomp) CCTTGTTACGACTTTTACTTCC
-	ARRAY_FOLDERS[4]="ITS54"
-	PRIMERS_F[4]="GGAAGTAAAAGTCGTAACAAGG"
-	PRIMERS_FRC[4]="CCTTGTTACGACTTTTACTTCC"
-	PRIMERS_R[4]="TCCTCCGCTTATTGATATGC"
-	PRIMERS_RRC[4]="GCATATCAATAAGCGGAGGA"
-	PRODUCT_LENGTH_MIN[4]="300"
-	PRODUCT_LENGTH_MAX[4]="1200"
+		# ITS54
+		# ITS5 GGAAGTAAAAGTCGTAACAAGG
+		# ITS5(revcomp) CCTTGTTACGACTTTTACTTCC
+		ARRAY_FOLDERS[4]="ITS54"
+		PRIMERS_F[4]="GGAAGTAAAAGTCGTAACAAGG"
+		PRIMERS_FRC[4]="CCTTGTTACGACTTTTACTTCC"
+		PRIMERS_R[4]="TCCTCCGCTTATTGATATGC"
+		PRIMERS_RRC[4]="GCATATCAATAAGCGGAGGA"
+		PRODUCT_LENGTH_MIN[4]="300"
+		PRODUCT_LENGTH_MAX[4]="1200"
 
-1. trim_and_sort.sh
+###1. trim_and_sort.sh
 
-	Usage: sh trim_and_sort.sh [-p primer_pair] [-q quality_cutoff] [-m min_length] [-M max_length] [-c head_crop] [-a adapter_error] [-o adapter_overlap] [-N nanoplot_all(T/F)] [-n nanoplot_each(T/F)] [-x cpu_cores] [-s skip_to_cut_adapt] [-L session_log_file]
+####Usage:
+		sh trim_and_sort.sh [-p primer_pair] [-q quality_cutoff] [-m min_length] [-M max_length] [-c head_crop] [-a adapter_error] [-o adapter_overlap] [-N nanoplot_all(T/F)] [-n nanoplot_each(T/F)] [-x cpu_cores] [-s skip_to_cut_adapt] [-L session_log_file]
 
-	Description: This script does the following
-		i.	runs nanoplot (summary and visualization of quality and length, distribution etc. after basecalling)
-		ii.	runs nanofilt (filters by q score, sequence length, and trims some reads like adapters from the reads)
-		iii.	converts file to fasta format and shortens names of sequences in fasta sample headers for downstream compatibility
-		iv.	makes a new folder for the results for the primer set being used
-		v. 	runs cutadapt to trim forward and reverse primer seqs and reorients them and contatenates all seqs from each barcode
+####Description: This script does the following
+1. runs nanoplot (summary and visualization of quality and length, distribution etc. after basecalling)
+2. runs nanofilt (filters by q score, sequence length, and trims some reads like adapters from the reads)
+3. converts file to fasta format and shortens names of sequences in fasta sample headers for downstream compatibility
+4. makes a new folder for the results for the primer set being used
+5. runs cutadapt to trim forward and reverse primer seqs and reorients them and contatenates all seqs from each barcode
 
 	Options (and default values)
 
