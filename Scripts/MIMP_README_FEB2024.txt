@@ -1,6 +1,3 @@
-# MIMP_Beta
- MinIon Metabarcoding Pipeline
-
 LAST UPDATED FEB 6 2024
 
 ++++++++++++++++++++++++++++++++++++++++++++
@@ -22,13 +19,11 @@ MIMP (MinIon Metabarcoding Pipeline) features executable shell scripts to which 
 |  II. Dependencies  |
 +--------------------+
 
-For Workflow (a) - "quick and dirty"
-------------------------------------
-* cutadapt
-* minimap2
-* samtools
-* python
-* R (and various R packages)
+cutadapt
+minimap2
+samtools
+python
+R (and various R packages)
 	dplyr (NOTE: early versions needed dplyr-devel but should not any more)
 	tidyr
 	phyloseq
@@ -36,13 +31,8 @@ For Workflow (a) - "quick and dirty"
 	Biostrings
 	foreach
 	doSNOW
-* mafft
-* mothur
-
-Needed for workflows (b) - "de novo" & (c) "Sanger"
----------------------------------------------------
-* All of the above
-* Also needed: dnadist (from phylip - available as binary at usfsipsentinelnetwork/MinIon_Sanger_Beta)
+mafft
+mothur
 
 +------------------+
 |  III. Workflows  |
@@ -299,6 +289,5 @@ MIMP "De Novo": use preliminary UNITE alignments to inform within-taxon clusteri
 c) MIMP "Sanger"
 ----------------
 
-A pipeline for assembly of sanger sequences from MinIon. The original pipeline is published here: usfsipsentinelnetwork/MinIon_Sanger_Beta...
 
 LAST UPDATED FEB 6 2024
