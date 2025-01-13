@@ -195,6 +195,7 @@ Uses preliminary quick and dirty minimap2 to create an OTU and taxon table to ma
 
 ## b) MIMP "De Novo"
 --------------------
+**NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete)
 
 MIMP "De Novo": use preliminary UNITE alignments to inform within-taxon clustering (based on rarefied subsample of sequences) and re-alignment to resulting consensus sequences which can be BLASTed to a custom database (ie NCBI), for long-read amplicon metabarcoding
 
