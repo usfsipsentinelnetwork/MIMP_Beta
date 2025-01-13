@@ -14,7 +14,18 @@
 
 ## I. About 
 
-MIMP (MinIon Metabarcoding Pipeline) features executable shell scripts to which one can pass arguments to augment a basic metabarcoding pipeline for processing multiplexed amplicon data from ONT MinIon, after basecalling. Currently the implementation is simple. MIMP supports two metabarcode amplicon pipelines a) "Quick & Dirty" and b) "De Novo" which respectively rely a) solely on alignment to the UNITE database or b) use preliminary UNITE alignments to inform within-taxon clustering (based on rarefied subsample of sequences) and re-alignment to resulting consensus sequences which can be BLASTed to a custom database (ie NCBI), for long-read amplicon metabarcoding. MIMP also supports c) processing amplicon data from single-sample libraries (MIMP "Sanger"). 
+MIMP (MinIon Metabarcoding Pipeline) features executable shell scripts to which one can pass arguments to augment a basic metabarcoding pipeline for processing multiplexed amplicon data from ONT MinIon, after basecalling.
+
+Currently the implementation is simple. MIMP only currently supports a basic high level (ie >= genus) amplicon pipeline
+		a) "Quick & Dirty" which relies solely on alignment to the UNITE database.
+
+**NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete):
+MIMP will also support
+		b) "De Novo" which uses preliminary UNITE alignments to inform within-taxon clustering (based on rarefied subsample of sequences) and re-alignment to resulting consensus sequences which can be BLASTed to a custom database (ie NCBI), for long-read amplicon metabarcoding. MIMP also supports
+
+MIMP is built from a preliminary version that can be used to assemble reads for Sanger-like purposes, while dealing with contaminants (which is not possible with Sanger). This functionality makes it well suited for sequencing from fungi in situ, provided a low level of contamination by other fungi:
+
+		c) processing amplicon data from single-sample libraries (MIMP "Sanger"). 
 
 ## II. Dependencies
 
