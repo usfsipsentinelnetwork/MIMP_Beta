@@ -1,13 +1,13 @@
 # MIMP_Beta: MinIon Metabarcoding Pipeline
 
-		LAST UPDATED FEB 6 2024
+		LAST UPDATED JAN 13 2025
 
 		++++++++++++++++++++++++++++++++++++++++++++
 		++                                        ++
 		++   MIMP: MinIon Metabarcoding Pipeline  ++
 		++   ===================================  ++
 		++                                        ++
-		++      (C) Geoffrey Williams 2024        ++
+		++      (C) Geoffrey Williams 2025        ++
 		++                                        ++
 		++++++++++++++++++++++++++++++++++++++++++++
 
@@ -326,4 +326,4 @@ MIMP "De Novo": use preliminary UNITE alignments to inform within-taxon clusteri
 
 A pipeline for assembly of sanger sequences from MinIon. The original pipeline is published here: usfsipsentinelnetwork/MinIon_Sanger_Beta...
 
-		LAST UPDATED FEB 6 2024
+		LAST UPDATED JAN 13 2025
