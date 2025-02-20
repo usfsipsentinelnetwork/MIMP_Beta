@@ -33,18 +33,19 @@ MIMP is built from a preliminary version that can be used to assemble reads for 
 
 For Workflow (a) - "quick and dirty"
 ------------------------------------
+* nanofilt and nanoplot
 * cutadapt
 * minimap2
 * samtools
 * python
 * R (and various R packages)
-	dplyr (NOTE: early versions needed dplyr-devel but should not any more)
-	tidyr
-	phyloseq
-	progress
-	Biostrings
-	foreach
-	doSNOW
+** dplyr (NOTE: early versions needed dplyr-devel but should not any more)
+**	tidyr
+**	phyloseq
+**	progress
+**	Biostrings
+**	foreach
+**	doSNOW
 * mafft
 * mothur
 
