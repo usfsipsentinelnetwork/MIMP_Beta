@@ -101,12 +101,12 @@ index=$(echo ${ARRAY_FOLDERS[@]/$primer_pair//} | cut -d/ -f1 | wc -w | tr -d ' 
 # create a log file JUST FOR THIS CALL OF TRIM_AND_SORT with a unique time stamp
 current_time=$(date "+%Y.%m.%d-%H.%M.%S")
 file_name="trim_and_sort-log"
-file_name_stamped=$file_name.$current_time.txt
+file_name_stamped=$file_name.$current_time.log
 
 # from here on, all output is rerouted to the log file unless otherwise specified
 {
 # first output command call to the log file just for this call
-echo "running trim_and_sort.sh -p $primer_pair -q $quality_cutoff -m $min_length -M $max_length -c $head_crop -e $adapter_error -o $adapter_overlap -N $nanoplot_all -n $nanoplot_each -x $cpu_cores -s $skip_to_cut_adapt -L $log_file"
+echo "running trim_and_sort.sh -p $primer_pair -q $quality_cutoff -m $min_length -M $max_length -c $head_crop -e $adapter_error -o $adapter_overlap -N $nanoplot_all -n $nanoplot_each -x $cpu_cores -s $skip_to_cut_adapt -L $session_log_file"
 
 # first need to check to make sure the primer name used is in the file
 if [[ $index == -1 ]]; then
@@ -116,7 +116,7 @@ fi
 
 # if session log file name not supplied, create one (e.g., ITS54.log)
 if [[ $session_log_file == "" ]]; then
-	log_file=$primer_pair.log
+	session_log_file=$file_name_stamped
 fi
 
 # if session log file by that name does not yet exist, create a file
@@ -126,7 +126,7 @@ fi
 
 # next output command and options to the session log file:
 echo $current_time: >> $session_log_file
-echo "trim_and_sort.sh -p $primer_pair -q $quality_cutoff -m $min_length -M $max_length -c $head_crop -e $adapter_error -o $adapter_overlap -N $nanoplot_all -n $nanoplot_each -x $cpu_cores -s $skip_to_cut_adapt -L $log_file" >> $session_log_file
+echo "trim_and_sort.sh -p $primer_pair -q $quality_cutoff -m $min_length -M $max_length -c $head_crop -e $adapter_error -o $adapter_overlap -N $nanoplot_all -n $nanoplot_each -x $cpu_cores -s $skip_to_cut_adapt -L $session_log_file" >> $session_log_file
 echo "..." >> $session_log_file
 
 # runs nanoplot FOR ALL THE READS (summary and visualization of quality and length, distribution etc. after basecalling)
