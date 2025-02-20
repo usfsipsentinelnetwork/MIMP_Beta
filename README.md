@@ -38,6 +38,8 @@ For Workflow (a) - "quick and dirty"
 * minimap2
 * samtools
 * python
+* mafft
+* mothur
 * R (and various R packages)
 	* dplyr (NOTE: early versions needed dplyr-devel but should not any more)
 	* tidyr
@@ -48,8 +50,6 @@ For Workflow (a) - "quick and dirty"
 		* progress
 		* foreach
 		* doSNOW
-* mafft
-* mothur
 
 Needed for workflows (b) - "de novo" & (c) "Sanger"
 ---------------------------------------------------
