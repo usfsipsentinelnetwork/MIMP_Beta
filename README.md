@@ -39,13 +39,15 @@ For Workflow (a) - "quick and dirty"
 * samtools
 * python
 * R (and various R packages)
-** dplyr (NOTE: early versions needed dplyr-devel but should not any more)
-**	tidyr
-**	phyloseq
-**	progress
-**	Biostrings
-**	foreach
-**	doSNOW
+	* dplyr (NOTE: early versions needed dplyr-devel but should not any more)
+	* tidyr
+	* BiocManager
+		* Biostrings (not on CRAN, BiocManager::install("BioStrings") - need BiocManager package)
+		* phyloseq (not on CRAN, BiocManager::install("phyloseq") - need BiocManager package)
+	* May need only for b & c (check to verify)
+		* progress
+		* foreach
+		* doSNOW
 * mafft
 * mothur
 
