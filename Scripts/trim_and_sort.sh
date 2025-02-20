@@ -165,7 +165,7 @@ do
 				rm all*fas*
 			fi # new
 			
-			if [ -f "*.fastq"]; then # new
+			if [ -f "*.fastq" ]; then # new
 				cat *.fastq > all.fastq
 				
 				# runs nanoplot FOR EACH BARCODE (summary and visualization of quality and length, distribution etc. after basecalling)
@@ -198,7 +198,7 @@ do
 		fi
 		echo "Running cutadapt on $folder to fasta format for ${ARRAY_FOLDERS[index]}"
 		
-		if [ -f "all.fastq"]; then # new
+		if [ -f "all.fastq" ]; then # new
 
 			# makes a new folder for the results for the primer set being used
 			#		if [ -d "${ARRAY_FOLDERS[index]}" ]; then
