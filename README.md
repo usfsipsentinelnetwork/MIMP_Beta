@@ -99,6 +99,10 @@ To load mothur
 
 		module load Mothur/1.48.0-foss-2023a-Python-3.11.3
 
+You will need the executable, dnadist from phylip. Download it directly with the following command
+
+		wget -O dnadist https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta/raw/refs/heads/main/Final_scripts/dnadist
+
 That should be everything you need! If doing this on a job node, you will need to write a submission script. You can include the module load code in the script but may want to test it out first.
 
 Needed for workflows (b) - "de novo" & (c) "Sanger"
