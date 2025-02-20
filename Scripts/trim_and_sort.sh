@@ -143,29 +143,29 @@ fi
 #for folder in "${barcodes[@]}"
 for folder in ./barcode*/
 do
-	echo "you are here (1):"
-	pwd
+	#echo "you are here (1):"
+	#pwd
 	# check to see if folder exists first
 	if [ -d "$folder" ]
 	then
-		echo "you are here (2):"
-		pwd
+		#echo "you are here (2):"
+		#pwd
 		
 		cd $folder
 
-		echo "you are here (3):"
-		pwd		
+		#echo "you are here (3):"
+		#pwd		
 		# option to skip cut adapt
 		if [[ $skip_to_cut_adapt == "F" ]]; then
 		
-			echo "you are here (4):"
-			pwd
+			#echo "you are here (4):"
+			#pwd
 			
-			if [ -f "all*fas*" ]; then # new
+			if ls all*fas* 1> /dev/null 2>&1; then # new
 				rm all*fas*
 			fi # new
 			
-			if [ -f "*.fastq" ]; then # new
+			if ls *.fastq 1> /dev/null 2>&1; then # new
 				cat *.fastq > all.fastq
 				
 				# runs nanoplot FOR EACH BARCODE (summary and visualization of quality and length, distribution etc. after basecalling)
@@ -198,7 +198,7 @@ do
 		fi
 		echo "Running cutadapt on $folder to fasta format for ${ARRAY_FOLDERS[index]}"
 		
-		if [ -f "all.fastq" ]; then # new
+		if ls all.fastq 1> /dev/null 2>&1; then # new
 
 			# makes a new folder for the results for the primer set being used
 			#		if [ -d "${ARRAY_FOLDERS[index]}" ]; then
