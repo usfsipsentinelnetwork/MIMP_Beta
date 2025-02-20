@@ -143,14 +143,24 @@ fi
 #for folder in "${barcodes[@]}"
 for folder in ./barcode*/
 do
-
+	echo "you are here (1):"
+	pwd
 	# check to see if folder exists first
 	if [ -d "$folder" ]
 	then
-		cd $folder
+		echo "you are here (2):"
+		pwd
 		
+		cd $folder
+
+		echo "you are here (3):"
+		pwd		
 		# option to skip cut adapt
 		if [[ $skip_to_cut_adapt == "F" ]]; then
+		
+			echo "you are here (4):"
+			pwd
+		
 			rm all*fas*
 			cat *.fastq > all.fastq
 			
