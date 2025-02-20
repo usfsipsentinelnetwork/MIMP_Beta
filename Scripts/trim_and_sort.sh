@@ -160,69 +160,81 @@ do
 		
 			echo "you are here (4):"
 			pwd
-		
-			rm all*fas*
-			cat *.fastq > all.fastq
 			
-			# runs nanoplot FOR EACH BARCODE (summary and visualization of quality and length, distribution etc. after basecalling)
-			if [[ $nanoplot_each == 'T' ]]; then
+			if [ -f "all*fas*" ]; then # new
+				rm all*fas*
+			fi # new
 			
-				# b) generate quality plots
-				echo "Running nanoplot on $folder for ${ARRAY_FOLDERS[index]}"
-				if [ -d nanoplot ]; then
-					rm -r nanoplot
+			if [ -f "*.fastq"]; then # new
+				cat *.fastq > all.fastq
+				
+				# runs nanoplot FOR EACH BARCODE (summary and visualization of quality and length, distribution etc. after basecalling)
+				if [[ $nanoplot_each == 'T' ]]; then
+				
+					# b) generate quality plots
+					echo "Running nanoplot on $folder for ${ARRAY_FOLDERS[index]}"
+					if [ -d nanoplot ]; then
+						rm -r nanoplot
+					fi
+					mkdir nanoplot
+					NanoPlot --fastq all.fastq --plots dot --outdir nanoplot
 				fi
-				mkdir nanoplot
-				NanoPlot --fastq all.fastq --plots dot --outdir nanoplot
+				
+				# runs nanofilt (filters by q score, sequence length, and trims some reads like adapters from the reads)
+				# Q, minimum length bp, trim leading bases (adapter)
+				echo "Running nanofilt on $folder for ${ARRAY_FOLDERS[index]}"
+				NanoFilt -q $quality_cutoff -l $min_length --maxlength $max_length --headcrop $head_crop all.fastq > all_filt.fastq
+				
+				#d) convert to .fasta format
+				echo "Converting $folder to fasta format for ${ARRAY_FOLDERS[index]}"
+				sed -n '1~4s/^@/>/p;2~4p' all_filt.fastq > all_filt.fasta
+				rm all.fastq all_filt.fastq
+				
+				#e) shorten names of sequences to just 8 characters
+				sed 's/.//10g; n' all_filt.fasta > all_filt_concatenated.fasta
+			else
+				echo "No fastq files in $folder. make sure they are decompressed."
 			fi
-			
-			# runs nanofilt (filters by q score, sequence length, and trims some reads like adapters from the reads)
-			# Q, minimum length bp, trim leading bases (adapter)
-			echo "Running nanofilt on $folder for ${ARRAY_FOLDERS[index]}"
-			NanoFilt -q $quality_cutoff -l $min_length --maxlength $max_length --headcrop $head_crop all.fastq > all_filt.fastq
-			
-			#d) convert to .fasta format
-			echo "Converting $folder to fasta format for ${ARRAY_FOLDERS[index]}"
-			sed -n '1~4s/^@/>/p;2~4p' all_filt.fastq > all_filt.fasta
-			rm all.fastq all_filt.fastq
-			
-			#e) shorten names of sequences to just 8 characters
-			sed 's/.//10g; n' all_filt.fasta > all_filt_concatenated.fasta
 		fi
 		echo "Running cutadapt on $folder to fasta format for ${ARRAY_FOLDERS[index]}"
 		
-		# makes a new folder for the results for the primer set being used
-#		if [ -d "${ARRAY_FOLDERS[index]}" ]; then
-#			mkdir ${ARRAY_FOLDERS[index]}
-#		else
-#			rm -r ${ARRAY_FOLDERS[index]}
-#			mkdir ${ARRAY_FOLDERS[index]}
-#		fi
+		if [ -f "all.fastq"]; then # new
 
-		if [ -d "${ARRAY_FOLDERS[index]}" ]; then
-			rm -r ${ARRAY_FOLDERS[index]}
-			mkdir ${ARRAY_FOLDERS[index]}
-		else
-			mkdir ${ARRAY_FOLDERS[index]}
-		fi
+			# makes a new folder for the results for the primer set being used
+			#		if [ -d "${ARRAY_FOLDERS[index]}" ]; then
+			#			mkdir ${ARRAY_FOLDERS[index]}
+			#		else
+			#			rm -r ${ARRAY_FOLDERS[index]}
+			#			mkdir ${ARRAY_FOLDERS[index]}
+			#		fi
 
-		cd ${ARRAY_FOLDERS[index]}
-		
-		# runs cutadapt to trim forward and reverse primer seqs and reorients them
-		cutadapt --rc -j $cpu_cores -g ${PRIMERS_F[index]} -o forward_seqs.fasta -m ${PRODUCT_LENGTH_MIN[index]} -M ${PRODUCT_LENGTH_MAX[index]} --overlap $adapter_overlap -e $adapter_error ../all_filt_concatenated.fasta --untrimmed-output=all_filt_noF.fasta
-		cutadapt --rc -j $cpu_cores -a ${PRIMERS_RRC[index]} -o reverse_seqs.fasta -m ${PRODUCT_LENGTH_MIN[index]} -M ${PRODUCT_LENGTH_MAX[index]} --overlap $adapter_overlap -e $adapter_error all_filt_noF.fasta --discard-untrimmed
-		
-		# contatenates all seqs from each barcode
-		cat forward_seqs.fasta reverse_seqs.fasta > all_filt_reorient.fasta
-		myfilesize1=$(wc -l "all_filt_reorient.fasta" | awk '{print $1}')
-		cd ..
-		
-		# remove file with less than 3 reads for the whole barcode
-		if (( $myfilesize1 < 6 ))
-		then
-			rm -R ${ARRAY_FOLDERS[index]}
+			if [ -d "${ARRAY_FOLDERS[index]}" ]; then
+				echo "Folder already exists for primer set ${ARRAY_FOLDERS[index]} in $folder. removing..."
+				rm -r "${ARRAY_FOLDERS[index]}"
+				mkdir "${ARRAY_FOLDERS[index]}"
+			else
+				echo "Making folder for ${ARRAY_FOLDERS[index]} in $folder..."
+				mkdir "${ARRAY_FOLDERS[index]}"
+			fi
+
+			cd ${ARRAY_FOLDERS[index]}
+			
+			# runs cutadapt to trim forward and reverse primer seqs and reorients them
+			cutadapt --rc -j $cpu_cores -g ${PRIMERS_F[index]} -o forward_seqs.fasta -m ${PRODUCT_LENGTH_MIN[index]} -M ${PRODUCT_LENGTH_MAX[index]} --overlap $adapter_overlap -e $adapter_error ../all_filt_concatenated.fasta --untrimmed-output=all_filt_noF.fasta
+			cutadapt --rc -j $cpu_cores -a ${PRIMERS_RRC[index]} -o reverse_seqs.fasta -m ${PRODUCT_LENGTH_MIN[index]} -M ${PRODUCT_LENGTH_MAX[index]} --overlap $adapter_overlap -e $adapter_error all_filt_noF.fasta --discard-untrimmed
+			
+			# contatenates all seqs from each barcode
+			cat forward_seqs.fasta reverse_seqs.fasta > all_filt_reorient.fasta
+			myfilesize1=$(wc -l "all_filt_reorient.fasta" | awk '{print $1}')
+			cd ..
+			
+			# remove file with less than 3 reads for the whole barcode
+			if (( $myfilesize1 < 6 ))
+			then
+				rm -R ${ARRAY_FOLDERS[index]}
+			fi
+			cd ..
 		fi
-		cd ..
 	fi
 done
 } > "$file_name_stamped"
