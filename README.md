@@ -33,12 +33,12 @@ MIMP is built from a preliminary version that can be used to assemble reads for 
 
 For Workflow (a) - "quick and dirty"
 ------------------------------------
-* nanofilt and nanoplot
+* nanofilt and NanoPlot
 * cutadapt
 * minimap2
 * samtools
-* python
-* mafft
+* python   - check is likely already loaded/installed
+* mafft    - may need mpi version
 * mothur
 * R (and various R packages)
 	* dplyr (NOTE: early versions needed dplyr-devel but should not any more)
@@ -50,6 +50,56 @@ For Workflow (a) - "quick and dirty"
 		* progress
 		* foreach
 		* doSNOW
+
+Notes for MSU ICER users for installation on development nodes (2/20/2025)
+--------------------------------------------------------------------------
+Once SSH'd into PuTTY and logged into a development node, you will need to load the modules. To log into the development node after SSHing into ICER, Run
+
+		ssh dev-amd24
+
+Run following commands (if in doubt this order works). Make sure you are in the home directory (do not change directories after logging in to development node). Once these are installed in your home directory, you won't have to load and unload them.
+
+		pip install NanoPlot
+		pip install nanofilt
+		pip install cutadapt
+		
+To be able to get cutadapt from the command line without specifying path, verify in the output of pip install, it should be installed to .local/bin/cutadapt - output from install:
+
+		Installing collected packages: zlib-ng, isal, xopen, dnaio, cutadapt
+			WARNING: The script cutadapt is installed in '/mnt/home/will4086/.local/bin' which is not on PATH.
+			Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+		Successfully installed cutadapt-5.0 dnaio-1.2.3 isal-1.7.1 xopen-2.0.2 zlib-ng-0.5.1
+
+To add to the directory (careful, if you get this wrong you may have to log out and back in),
+
+		export PATH=$(pwd)/.local/bin:$PATH
+
+Now you need to load modules into your session/environment. These will have to be reloaded when you want to run your program. You can add them to a bash script if you want. To look for modules:
+
+		module spider <module name>
+
+To load a module
+
+		module load <module name/version>
+		
+You may run into issues loading, check the output and try the different versions. This order worked on 2/20/2025 on devel node dev-amd24
+
+First, you are going to need to update the C compiler (for mafft)
+
+		module load AOCC/4.0.0-GCCcore-12.3.0
+		module load MAFFT/7.520-GCC-12.3.0-with-extensions
+
+Then you should be able to load the following (note these depend on gcc version 12.3)
+
+		module load R-bundle-Bioconductor/3.18-foss-2023a-R-4.3.2 # loads R, needed packages, and the BiocManager packages
+		module load minimap2/2.26-GCCcore-12.3.0
+		module load SAMtools/1.18-GCC-12.3.0
+
+To load mothur
+
+		module load Mothur/1.48.0-foss-2023a-Python-3.11.3
+
+That should be everything you need! If doing this on a job node, you will need to write a submission script. You can include the module load code in the script but may want to test it out first.
 
 Needed for workflows (b) - "de novo" & (c) "Sanger"
 ---------------------------------------------------
