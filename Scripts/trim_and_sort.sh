@@ -192,12 +192,20 @@ do
 		echo "Running cutadapt on $folder to fasta format for ${ARRAY_FOLDERS[index]}"
 		
 		# makes a new folder for the results for the primer set being used
+#		if [ -d "${ARRAY_FOLDERS[index]}" ]; then
+#			mkdir ${ARRAY_FOLDERS[index]}
+#		else
+#			rm -r ${ARRAY_FOLDERS[index]}
+#			mkdir ${ARRAY_FOLDERS[index]}
+#		fi
+
 		if [ -d "${ARRAY_FOLDERS[index]}" ]; then
-			mkdir ${ARRAY_FOLDERS[index]}
-		else
 			rm -r ${ARRAY_FOLDERS[index]}
 			mkdir ${ARRAY_FOLDERS[index]}
+		else
+			mkdir ${ARRAY_FOLDERS[index]}
 		fi
+
 		cd ${ARRAY_FOLDERS[index]}
 		
 		# runs cutadapt to trim forward and reverse primer seqs and reorients them
