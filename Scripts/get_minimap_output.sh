@@ -34,7 +34,7 @@ while getopts 'p:L:h' OPTION; do
 done
 
 # check for primer name
-if (( $primer_pair == '' )); then
+if (( $primer_pair == '' )); then 
 	echo "You must specify -p primer_pair folder name..."
 	exit 1
 fi
