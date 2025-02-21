@@ -75,6 +75,9 @@ pip install cutadapt
 module load R-bundle-Bioconductor/3.18-foss-2023a-R-4.3.2 # loads R, needed packages, and the BiocManager packages
 module load minimap2/2.26-GCCcore-12.3.0
 module load SAMtools/1.18-GCC-12.3.0
+
+#To add to the directory (careful, if you get this wrong you may have to log out and back in)
+export PATH=$(pwd)/.local/bin:$PATH
 ```
 
 In the future, you can put the rest in a script, without reinstalling the python packages. You'll need to load these every time you run the pipeline.
