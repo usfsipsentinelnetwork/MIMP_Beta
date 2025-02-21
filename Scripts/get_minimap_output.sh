@@ -13,8 +13,8 @@
 		
 #	Output: ./minimap_primer_pair/*.barcodeXX.csv
 
-primer_pair='NULL'
-session_log_file=""
+primer_pair=''
+session_log_file=''
 
 print_usage(){
 	echo "Usage: sh get_minimap_output.sh [-p primer_pair] [-L session_log_file]" >&2
@@ -34,7 +34,7 @@ while getopts 'p:L:h' OPTION; do
 done
 
 # check for primer name
-if (( $primer_pair == "NULL" )); then
+if (( $primer_pair == '' )); then
 	echo "you must specify -p primer_pair folder name..."
 	exit 1
 fi
