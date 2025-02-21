@@ -112,7 +112,7 @@ Needed for workflows (b) - "de novo" & (c) "Sanger"
 -----------------------
 
 ### Description
-MIMP "Quick & Dirty": output OTU table/ phyloseq object solely on alignment to the UNITE database.
+MIMP "Quick & Dirty": output OTU table/ phyloseq object solely on alignment to the UNITE database. Suitable for aggregate genus level metabarcoding.
 
 In order to run this version of the pipeline, you should download the repository and have the scripts in the parent directory containing your folders for each barcode. That is, you should have your output from basecalling arranged into folders "barcode01" or "barcode1" through "barcode**" and the following scripts/executables in the parent folder
 ```
@@ -133,6 +133,17 @@ bash quick_dirty_minimap.sh -p ITS1F4 -d ~/sh_general_release_dynamic_s_all_04.0
 bash get_minimap_output.sh -p ITS1F4
 Rscript make_phyloseq.R ITS1F4 UNITE
 ```
+
+Once you load this into R, you can generate a plot as follows:
+```
+library(dplyr)
+library(phyloseq)
+tax_table(psobj) <- tax_table(psobj)[,-c(1:2)]
+psobj %>% prune_taxa(rownames(tax_table(psobj))!='1',.) %>% microbiome::aggregate_taxa(level = 'ta8') %>% microViz::comp_barplot(tax_level = 'ta8')
+```
+
+This produced the following output
+![Example of figure from output](https://raw.githubusercontent.com/usfsipsentinelnetwork/MIMP_Beta/refs/heads/main/example_figure.png)
 
 ### 0. primer_seqs.sh
 
