@@ -34,13 +34,13 @@ while getopts 'p:L:h' OPTION; do
 done
 
 # check for primer name
-if (( $primer_pair == '' )); then 
+if [[ $primer_pair == '' ]]; then 
 	echo "You must specify -p primer_pair folder name..."
 	exit 1
 fi
 
 # if session log file name not supplied, create one (e.g., ITS54.log)
-if (( $session_log_file == '' )); then
+if [[ $session_log_file == '' ]]; then
 	session_log_file=get_minimap_output.$primer_pair.log
 fi
 
