@@ -56,37 +56,41 @@ Notes for MSU ICER users for installation on development nodes (2/20/2025)
 --------------------------------------------------------------------------
 
 You will need the executable, dnadist from phylip. Download it directly with the following command
-
 ```
 wget -O dnadist https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta/raw/refs/heads/main/Final_scripts/dnadist
 ```
 	
 You may run into issues loading, check the output and try the different versions. This order worked on 2/20/2025 on devel node dev-amd24. Then you should be able to load the following (note these depend on gcc version 12.3). Run the following code in this order to load the dependencies
-
 The first time you run this you should do this.
-
-		module load AOCC/4.0.0-GCCcore-12.3.0     #First, you are going to need to update the C compiler (for mafft)
-		module load Python/3.11.3-GCCcore-12.3.0  # and python
-		pip install NanoPlot
-		pip install nanofilt
-		pip install cutadapt
-		export PATH=$(pwd)/.local/bin:$PATH   #To add to the directory (careful, if you get this wrong you may have to log out and back in)
-		module load MAFFT/7.520-GCC-12.3.0-with-extensions
-		module load R-bundle-Bioconductor/3.18-foss-2023a-R-4.3.2 # loads R, needed packages, and the BiocManager packages
-		module load minimap2/2.26-GCCcore-12.3.0
-		module load SAMtools/1.18-GCC-12.3.0
-		module load Mothur/1.48.0-foss-2023a-Python-3.11.3
+```
+module load AOCC/4.0.0-GCCcore-12.3.0     #First, you are going to need to update the C compiler (for mafft)
+module load Python/3.11.3-GCCcore-12.3.0  # and python
+pip install NanoPlot
+pip install nanofilt
+pip install cutadapt
+module load R-bundle-Bioconductor/3.18-foss-2023a-R-4.3.2 # loads R, needed packages, and the BiocManager packages
+module load minimap2/2.26-GCCcore-12.3.0
+module load SAMtools/1.18-GCC-12.3.0
+```
 
 In the future, you can put the rest in a script, without reinstalling the python packages. You'll need to load these every time you run the pipeline.
+```
+module load AOCC/4.0.0-GCCcore-12.3.0     #First, you are going to need to update the C compiler (for mafft)
+module load Python/3.11.3-GCCcore-12.3.0  # and python
+module load R-bundle-Bioconductor/3.18-foss-2023a-R-4.3.2 # loads R, needed packages, and the BiocManager packages
+module load minimap2/2.26-GCCcore-12.3.0
+module load SAMtools/1.18-GCC-12.3.0
 
-		module load AOCC/4.0.0-GCCcore-12.3.0     #First, you are going to need to update the C compiler (for mafft)
-		module load Python/3.11.3-GCCcore-12.3.0  # and python
-		module load MAFFT/7.520-GCC-12.3.0-with-extensions
-		module load R-bundle-Bioconductor/3.18-foss-2023a-R-4.3.2 # loads R, needed packages, and the BiocManager packages
-		module load minimap2/2.26-GCCcore-12.3.0
-		module load SAMtools/1.18-GCC-12.3.0
-		module load Mothur/1.48.0-foss-2023a-Python-3.11.3
-		export PATH=$(pwd)/.local/bin:$PATH   #To add to the directory (careful, if you get this wrong you may have to log out and back in)
+#To add to the directory (careful, if you get this wrong you may have to log out and back in)
+export PATH=$(pwd)/.local/bin:$PATH
+```
+
+For the MIMP "de novo" only (see below), you will need mafft and mothur. After the above, load them as follows...
+
+```
+module load MAFFT/7.520-GCC-12.3.0-with-extensions
+module load Mothur/1.48.0-foss-2023a-Python-3.11.3
+```
 
 That should be everything you need! If doing this on a job node, you will need to write a submission script. You can include the module load code in the script but may want to test it out first.
 
