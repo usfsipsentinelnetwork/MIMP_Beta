@@ -45,7 +45,7 @@ dd <- dir()
 
 output_matrix <- NULL
 
-for (filename in dd) {
+for (filename in grep("^relabund.+\\.csv",dd,value=T,perl=T)) {
   
   current_table <- read.csv(filename)
   current_table$barcode <- strsplit(filename, split="\\.")[[1]][2]
