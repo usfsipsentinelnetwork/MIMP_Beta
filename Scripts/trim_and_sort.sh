@@ -143,33 +143,22 @@ fi
 #for folder in "${barcodes[@]}"
 for folder in ./barcode*/
 do
-	#echo "you are here (1):"
-	#pwd
+
 	# check to see if folder exists first
 	if [ -d "$folder" ]
 	then
-		#echo "you are here (2):"
-		#pwd
-		
-		cd $folder
 
-		#echo "you are here (3):"
-		#pwd		
-		# option to skip cut adapt
-		if [[ $skip_to_cut_adapt == "F" ]]; then
+		cd $folder
 		
-			#echo "you are here (4):"
-			#pwd
+		if [[ $skip_to_cut_adapt == "F" ]]; then
 			
 			count=`ls all*fas* 2>/dev/null | wc -l`
 			if (( $count > 0 )); then
-			#if ls all*fas* 1> /dev/null 2>&1; then # new
 				rm all*fas*
-			fi # new
+			fi 
 			
 			count=`ls *.fastq 2>/dev/null | wc -l`
 			if (( $count > 0 )); then
-			#if ls *.fastq 1> /dev/null 2>&1; then # new
 				cat *.fastq > all.fastq
 				
 				# runs nanoplot FOR EACH BARCODE (summary and visualization of quality and length, distribution etc. after basecalling)
@@ -202,18 +191,7 @@ do
 		fi
 		echo "Running cutadapt on $folder for ${ARRAY_FOLDERS[index]}"
 		
-		count=`ls all.fastq 2>/dev/null | wc -l`
-		if (( $count > 0 )); then
-		#if [ -f "all.fastq" ]; then
-			#if ls all.fastq 1> /dev/null 2>&1; then # new
-
-			# makes a new folder for the results for the primer set being used
-			#		if [ -d "${ARRAY_FOLDERS[index]}" ]; then
-			#			mkdir ${ARRAY_FOLDERS[index]}
-			#		else
-			#			rm -r ${ARRAY_FOLDERS[index]}
-			#			mkdir ${ARRAY_FOLDERS[index]}
-			#		fi
+		if [ -f "all.fasta" ]; then
 
 			DIRECTORY=${ARRAY_FOLDERS[index]}
 			
@@ -225,15 +203,6 @@ do
 				echo "Making folder for $DIRECTORY in $folder..."
 				mkdir ${ARRAY_FOLDERS[index]}
 			fi
-			
-#			if [ -d "${ARRAY_FOLDERS[index]}" ]; then
-#				echo "Folder already exists for primer set ${ARRAY_FOLDERS[index]} in $folder. removing..."
-#				rm -r "${ARRAY_FOLDERS[index]}"
-#				mkdir "${ARRAY_FOLDERS[index]}"
-#			else
-#				echo "Making folder for ${ARRAY_FOLDERS[index]} in $folder..."
-#				mkdir "${ARRAY_FOLDERS[index]}"
-#			fi
 
 			cd ${ARRAY_FOLDERS[index]}
 			
