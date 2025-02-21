@@ -34,14 +34,14 @@ while getopts 'p:L:h' OPTION; do
 done
 
 # check for primer name
-if [[ $primer_pair == "NULL" ]]; then
+if (( $primer_pair == "NULL" )); then
 	echo "you must specify -p primer_pair folder name..."
 	exit 1
 fi
 
 # if session log file name not supplied, create one (e.g., ITS54.log)
-if [[ $session_log_file == "" ]]; then
-	log_file=$primer_pair.log
+if (( $session_log_file == "" )); then
+	session_log_file=get_minimap_output.$primer_pair.log
 fi
 
 # if session log file by that name does not yet exist, create a file
