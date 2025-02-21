@@ -111,11 +111,12 @@ MIMP "Quick & Dirty": output OTU table/ phyloseq object solely on alignment to t
 ### Example protocol
 
 In order to run this, you should download the repository and have the scripts in the parent directory containing your folders for each barcode. In this case, the primer sequences had been mostly trimmed off along with the adapters and there was very low quality, so we adjusted the options. You'll also want to install the UNITE database. In this instance, its in my home folder (~). For the most part I've only modified options that deviate from default settings. In the log file, you can see the entire call. Note that the Rscript step does not produce a log file.
-
-		bash trim_and_sort.sh -p ITS1F4 -q 10 -m 150 -c 0 -o 1
-		bash quick_dirty_minimap.sh -p ITS1F4 -d ~/sh_general_release_dynamic_s_all_04.04.2024_dev.fasta
-		bash get_minimap_output.sh -p ITS1F4
-		Rscript make_phyloseq.R ITS1F4 UNITE
+```
+bash trim_and_sort.sh -p ITS1F4 -q 10 -m 150 -c 0 -o 1
+bash quick_dirty_minimap.sh -p ITS1F4 -d ~/sh_general_release_dynamic_s_all_04.04.2024_dev.fasta
+bash get_minimap_output.sh -p ITS1F4
+Rscript make_phyloseq.R ITS1F4 UNITE
+```
 
 ### 0. primer_seqs.sh
 
@@ -127,23 +128,26 @@ In order to run this, you should download the repository and have the scripts in
 This is not a command to run; this file contains all the information about primers and primer sequences that you may want to select from using the command line call; this script can be edited to add additional information in the same format that it is set up for GNU BASH langauge.
 
 Each primer set (F and R) is given a number; here is the format used to specify seq, rev comp seq, and length min and max parameters:
-
-		# ITS54
-		# ITS5 GGAAGTAAAAGTCGTAACAAGG
-		# ITS5(revcomp) CCTTGTTACGACTTTTACTTCC
-		ARRAY_FOLDERS[4]="ITS54"
-		PRIMERS_F[4]="GGAAGTAAAAGTCGTAACAAGG"
-		PRIMERS_FRC[4]="CCTTGTTACGACTTTTACTTCC"
-		PRIMERS_R[4]="TCCTCCGCTTATTGATATGC"
-		PRIMERS_RRC[4]="GCATATCAATAAGCGGAGGA"
-		PRODUCT_LENGTH_MIN[4]="300"
-		PRODUCT_LENGTH_MAX[4]="1200"
+```
+# ITS54
+# ITS5 GGAAGTAAAAGTCGTAACAAGG
+# ITS5(revcomp) CCTTGTTACGACTTTTACTTCC
+ARRAY_FOLDERS[4]="ITS54"
+PRIMERS_F[4]="GGAAGTAAAAGTCGTAACAAGG"
+PRIMERS_FRC[4]="CCTTGTTACGACTTTTACTTCC"
+PRIMERS_R[4]="TCCTCCGCTTATTGATATGC"
+PRIMERS_RRC[4]="GCATATCAATAAGCGGAGGA"
+PRODUCT_LENGTH_MIN[4]="300"
+PRODUCT_LENGTH_MAX[4]="1200"
+```
 
 ### 1. trim_and_sort.sh
 
 #### Usage:
 
-		sh trim_and_sort.sh [-p primer_pair] [-q quality_cutoff] [-m min_length] [-M max_length] [-c head_crop] [-a adapter_error] [-o adapter_overlap] [-N nanoplot_all(T/F)] [-n nanoplot_each(T/F)] [-x cpu_cores] [-s skip_to_cut_adapt] [-L session_log_file]
+```
+bash trim_and_sort.sh [-p primer_pair] [-q quality_cutoff] [-m min_length] [-M max_length] [-c head_crop] [-a adapter_error] [-o adapter_overlap] [-N nanoplot_all(T/F)] [-n nanoplot_each(T/F)] [-x cpu_cores] [-s skip_to_cut_adapt] [-L session_log_file]
+```
 
 #### Description:
 This script does the following
@@ -155,40 +159,43 @@ This script does the following
 
 #### Options (and default values)
 
-		General
-			-p primer_pair='ITS1F4'	  - the primer pair you want to use
-			-x skip_to_cut_adapt='F'  - whether to skip nanoplot & nanofilt and go straight to cutadapt
-			-L session_log_file="[-p primer_pair].log" 
-				name of log file where you are keeping track of all the commands
-				you are running and with which parameters (automatically supplies
-				one based on primer pair)
+#####General
+>	-p primer_pair='ITS1F4'		- the primer pair you want to use
+>	-x skip_to_cut_adapt='F'	- whether to skip nanoplot & nanofilt and go straight to cutadapt
+>	-L session_log_file="\[-p primer_pair\].log" 
+>		name of log file where you are keeping track of all the commands
+>		you are running and with which parameters (automatically supplies
+>		one based on primer pair)
 
-		NanoFilt Options
-			-q quality_cutoff=15  - the quality cutoff for nanofilt
-			-m min_length=200     - the minimum length for nanofilt
-			-M max_length=2000    - the maximum read length for nanofilt
-			-c head_crop=50       - the number of leading bases for nanofilt to trim
+#####NanoFilt Options
+>	-q quality_cutoff=15	- the quality cutoff for nanofilt
+>	-m min_length=200		- the minimum length for nanofilt
+>	-M max_length=2000		- the maximum read length for nanofilt
+>	-c head_crop=50			- the number of leading bases for nanofilt to trim
 
-		CutAdapt Options
-			-e adapter_error=.1    - adapter error rate
-			-o adapter_overlap=15  - the amount of overlap allowed
-			-x cpu_cores=8         - number of cores to use for cut adapt
+#####CutAdapt Options
+>	-e adapter_error=.1    - adapter error rate
+>	-o adapter_overlap=15  - the amount of overlap allowed
+>	-x cpu_cores=8         - number of cores to use for cut adapt
 
-		NanoPlot Options
-			-N nanoplot_all='T'  - whether to make a nanoplot for all seqs combined
-			-n nanoplot_each='T' - whether to make a nanoplot for each barcode
+#####NanoPlot Options
+>	-N nanoplot_all='T'  - whether to make a nanoplot for all seqs combined
+>	-n nanoplot_each='T' - whether to make a nanoplot for each barcode
+
 
 #### Output files:
-
-		barcodeXX/nanoplot files
-		barcodeXX/all_filt_concatenated.fasta (before cutadapt)
-		barcodeXX/primer_pair/all_filt_reorient.fasta
+```
+barcodeXX/nanoplot files
+barcodeXX/all_filt_concatenated.fasta (before cutadapt)
+barcodeXX/primer_pair/all_filt_reorient.fasta
+```
 
 ### 2. quick_dirty_minimap.sh
 
 #### Usage:
-
-		sh quick_dirty_minimap.sh [-p primer_pair] [-q quality_cutoff] [-d database] [-i infile] [-b barcode_threads] [-t minimap_threads] [-m minlen] [-s skip_minimap] [-S skip_samtools]  [-L session_log_file]
+```
+bash quick_dirty_minimap.sh [-p primer_pair] [-q quality_cutoff] [-d database] [-i infile] [-b barcode_threads] [-t minimap_threads] [-m minlen] [-s skip_minimap] [-S skip_samtools]  [-L session_log_file]
+```
 
 #### Description:
 This script does the following
@@ -199,48 +206,51 @@ This script does the following
 	particularly in make_phyloseq.R
 
 #### Options (* required) (= default)
-
-		General Options
-			-p (=primer_pair)    - name of primer pair as it appears in primer_seqs.sh (Default 'ITS54')
-			-q (=quality_cutoff) - the quality cutoff (as phred score) to filter initial sequences ((Default 10, corresponds to 90%)
-			-m minlen=300        - minimum length of seqs to filter initial sequences
-			-s skip_minimap      - (Default 'F') can be used to skip the minimap step in combination with -S to skip the samtools summary of minimap step - note that skipping minimap but not samtools makes little sense unless you wanted to just do one step at a time; but the summary section will still run at the end to gather minimap output.
-			-S skip_samtools     - (Default 'F') can be used in combination with -s to skip minimap and processing of minimap results. effectively, this function only gathers and summarizes minimap results.
-			-L session_log_file="[-p primer_pair].log" 
-				name of log file where you are keeping track of all the commands
-				you are running and with which parameters (automatically supplies
-				one based on primer pair)
+```
+General Options
+	-p (=primer_pair)    - name of primer pair as it appears in primer_seqs.sh (Default 'ITS54')
+	-q (=quality_cutoff) - the quality cutoff (as phred score) to filter initial sequences ((Default 10, corresponds to 90%)
+	-m minlen=300        - minimum length of seqs to filter initial sequences
+	-s skip_minimap      - (Default 'F') can be used to skip the minimap step in combination with -S to skip the samtools summary of minimap step - note that skipping minimap but not samtools makes little sense unless you wanted to just do one step at a time; but the summary section will still run at the end to gather minimap output.
+	-S skip_samtools     - (Default 'F') can be used in combination with -s to skip minimap and processing of minimap results. effectively, this function only gathers and summarizes minimap results.
+	-L session_log_file="[-p primer_pair].log" 
+		name of log file where you are keeping track of all the commands
+		you are running and with which parameters (automatically supplies
+		one based on primer pair)
 	
-		MiniMap2 Options
-			-d* (=database)                      - the name and location of reference database file for taxonomic assignments (formatted as a fasta file)
-			-i infile='all_filt_reorient.fasta'  - name of input fasta file in each barcode folder
-			-b barcode_threads=4                 - number of minimaps to run independently (total cpus = b * t)
-			-t minimap_threads=4                 - number of minimap threads to tell minimap run in each minimap instance
-			-P minimap_path="/vol3/home/ec2-user/minimap2-2.24_x64-linux"
+MiniMap2 Options
+	-d* (=database)                      - the name and location of reference database file for taxonomic assignments (formatted as a fasta file)
+	-i infile='all_filt_reorient.fasta'  - name of input fasta file in each barcode folder
+	-b barcode_threads=4                 - number of minimaps to run independently (total cpus = b * t)
+	-t minimap_threads=4                 - number of minimap threads to tell minimap run in each minimap instance
+	-P minimap_path="/vol3/home/ec2-user/minimap2-2.24_x64-linux"
+```
 
 #### Output files:
-
-		barcodeXX/primer_pair/all_filt_minimap.sam (minimap2 output)
-		barcodeXX/primer_pair/all_filt.samview.tsv (samtools view output)
-		barcodeXX/primer_pair/relabund_phred_q10.csv (database accession - like an OTU - raw abundance table)
+```
+barcodeXX/primer_pair/all_filt_minimap.sam (minimap2 output)
+barcodeXX/primer_pair/all_filt.samview.tsv (samtools view output)
+barcodeXX/primer_pair/relabund_phred_q10.csv (database accession - like an OTU - raw abundance table)
+```
 
 ### 3. get_minimap_output.sh
 
 #### Usage:
-
-		sh get_minimap_output.sh [-p primer_pair] [-L session_log_file]
+```
+bash get_minimap_output.sh [-p primer_pair] [-L session_log_file]
+```
 	
 #### Description:
 This reads in the minimap csv output from each folder and copies them all to a named file in the folder minimap_primer_pair
 	
-	Options (* required)
-		-p* (=primer_pair) - name of primer pair as it appears in primer_seqs.sh
-		-L session_log_file="[-p primer_pair].log" 
-			name of log file where you are keeping track of all the commands
-			you are running and with which parameters (automatically supplies
-			one based on primer pair)
-		
-	Output: ./minimap_primer_pair/*.barcodeXX.csv
+Options (* required)
+	-p* (=primer_pair) - name of primer pair as it appears in primer_seqs.sh
+	-L session_log_file="[-p primer_pair].log" 
+		name of log file where you are keeping track of all the commands
+		you are running and with which parameters (automatically supplies
+		one based on primer pair)
+	
+Output: ./minimap_primer_pair/*.barcodeXX.csv
 
 ### 4. make_phyloseq.R
 ** required for future steps, but does not write to session log file
