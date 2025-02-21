@@ -111,13 +111,22 @@ Needed for workflows (b) - "de novo" & (c) "Sanger"
 ## a) MIMP "Quick & Dirty"
 -----------------------
 
-In order to run this pipeline, you should have your output from basecalling arranged into folders "barcode01" or "barcode1" through "barcode**" and the following scripts in the folders, 
-
+### Description
 MIMP "Quick & Dirty": output OTU table/ phyloseq object solely on alignment to the UNITE database.
+
+In order to run this version of the pipeline, you should download the repository and have the scripts in the parent directory containing your folders for each barcode. That is, you should have your output from basecalling arranged into folders "barcode01" or "barcode1" through "barcode**" and the following scripts/executables in the parent folder
+```
+primer_seqs.sh # with info on your primers
+trim_and_sort.sh
+quick_dirty_minimap.sh
+get_minimap_output.sh -p ITS1F4
+make_phyloseq.R ITS1F4 UNITE
+dnadist
+```
 
 ### Example protocol
 
-In order to run this, you should download the repository and have the scripts in the parent directory containing your folders for each barcode. In this case, the primer sequences had been mostly trimmed off along with the adapters and there was very low quality, so we adjusted the options. You'll also want to install the UNITE database. In this instance, its in my home folder (~). For the most part I've only modified options that deviate from default settings. In the log file, you can see the entire call. Note that the Rscript step does not produce a log file.
+In this case, the primer sequences had been mostly trimmed off along with the adapters and there was very low quality, so we adjusted the options. You'll also want to install the UNITE database. In this instance, its in my home folder (~). For the most part I've only modified options that deviate from default settings. In the log file, you can see the entire call. Note that the Rscript step does not produce a log file.
 ```
 bash trim_and_sort.sh -p ITS1F4 -q 10 -m 150 -c 0 -o 1
 bash quick_dirty_minimap.sh -p ITS1F4 -d ~/sh_general_release_dynamic_s_all_04.04.2024_dev.fasta
