@@ -40,7 +40,7 @@ if (( $primer_pair == '' )); then
 fi
 
 # if session log file name not supplied, create one (e.g., ITS54.log)
-if (( $session_log_file == "" )); then
+if (( $session_log_file == '' )); then
 	session_log_file=get_minimap_output.$primer_pair.log
 fi
 
