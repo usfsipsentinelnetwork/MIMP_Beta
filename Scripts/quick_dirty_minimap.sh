@@ -80,7 +80,7 @@ done
 # create a log file JUST FOR THIS CALL OF TRIM_AND_SORT with a unique time stamp
 current_time=$(date "+%Y.%m.%d-%H.%M.%S")
 file_name="quick-dirty-minimap-log"
-file_name_stamped=$file_name.$current_time.txt
+file_name_stamped=$file_name.$current_time.log
 
 # from here on, all output is rerouted to the log file unless otherwise specified
 {
