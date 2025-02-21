@@ -191,7 +191,7 @@ do
 		fi
 		echo "Running cutadapt on $folder for ${ARRAY_FOLDERS[index]}"
 		
-		if [ -f "all.fasta" ]; then
+		if [ -f "all_filt_concatenated.fasta" ]; then
 
 			DIRECTORY=${ARRAY_FOLDERS[index]}
 			
