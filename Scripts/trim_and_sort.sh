@@ -250,8 +250,8 @@ do
 			then
 				rm -R ${ARRAY_FOLDERS[index]}
 			fi
-			cd ..
 		fi
+		cd ..
 	fi
 done
 } > "$file_name_stamped"
