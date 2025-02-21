@@ -36,7 +36,7 @@
 #		barcodeXX/primer_pair/relabund_phred_q10.csv (database accession - like an OTU - raw abundance table)
 
 # first set default values for parameters
-primer_pair='ITS54'
+primer_pair='ITS1F4'
 quality_cutoff=10         #90%
 database='' #'/vol3/home/ec2-user/ref_dbs/UNITE.fasta'
 infile='all_filt_reorient.fasta'
