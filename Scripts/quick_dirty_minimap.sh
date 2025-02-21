@@ -38,12 +38,12 @@
 # first set default values for parameters
 primer_pair='ITS54'
 quality_cutoff=10         #90%
-database='/vol3/home/ec2-user/ref_dbs/UNITE.fasta'
+database='' #'/vol3/home/ec2-user/ref_dbs/UNITE.fasta'
 infile='all_filt_reorient.fasta'
 barcode_threads=4
 minimap_threads=4
 minlen=300
-minimap_path="/vol3/home/ec2-user/minimap2-2.24_x64-linux"
+minimap_path='minimap2' #"/vol3/home/ec2-user/minimap2-2.24_x64-linux"
 skip_minimap='F'
 skip_samtools='F'
 session_log_file=""
@@ -82,12 +82,6 @@ current_time=$(date "+%Y.%m.%d-%H.%M.%S")
 file_name="quick-dirty-minimap-log"
 file_name_stamped=$file_name.$current_time.log
 
-# from here on, all output is rerouted to the log file unless otherwise specified
-{
-# first output command call to the log file just for this call
-echo "running sh quick_dirty_minimap.sh -p $primer_pair -q $quality_cutoff -d $database -i $infile -b $barcode_threads -t $minimap_threads -m $minlen -P $minimap_path -s $skip_minimap -S $skip_samtools -L $session_log_file"
-((total_threads = minimap_threads * barcode_threads))
-
 # if session log file name not supplied, create one (e.g., ITS54.log)
 if [[ $session_log_file == "" ]]; then
 	session_log_file=$file_name_stamped
@@ -98,6 +92,15 @@ if ! [[ -f $session_log_file ]]; then
 	>$session_log_file
 fi
 
+# from here on, all output is rerouted to the log file unless otherwise specified
+{
+# first output command call to the log file just for this call
+echo "running sh quick_dirty_minimap.sh -p $primer_pair -q $quality_cutoff -d $database -i $infile -b $barcode_threads -t $minimap_threads -m $minlen -P $minimap_path -s $skip_minimap -S $skip_samtools -L $session_log_file"
+
+((total_threads = minimap_threads * barcode_threads))
+
+
+
 # next output command and options to the session log file:
 echo $current_time: >> $session_log_file
 echo "sh quick_dirty_minimap.sh -p $primer_pair -q $quality_cutoff -d $database -i $infile -b $barcode_threads -t $minimap_threads -m $minlen -P $minimap_path -s $skip_minimap -S $skip_samtools -L $session_log_file" >> $session_log_file
@@ -107,31 +110,35 @@ echo "..." >> $session_log_file
 # runs minimap2 (a mapping alingment search) for each barcode to the database of choice and produces samtools output
 if [[ $skip_minimap == "F" ]]
 then
-	let COUNTER=0
-	
-	# cycle through folders
-	for folder in ./barcode*/
-	do
-		if [ -d "$folder/$primer_pair" ]
-		then
-			echo "minimap processing folder $folder"
-			cd $folder
-			cd $primer_pair
-#			cp ../../$database .
-
-			# runs minimap2 (a mapping alingment search) for each barcode to the database of choice and produces samtools output
-			$minimap_path/minimap2 -ax map-ont -t $minimap_threads --secondary=no $database $infile > all_filt_minimap.sam &
-			((COUNTER=COUNTER+1))
-			if (($COUNTER == $barcode_threads))
+	if [ -f $database ]; then
+		let COUNTER=0
+		
+		# cycle through folders
+		for folder in ./barcode*/
+		do
+			if [ -d "$folder/$primer_pair" ]
 			then
-				wait
-				let COUNTER=0
+				echo "minimap processing folder $folder"
+				cd $folder
+				cd $primer_pair
+	#			cp ../../$database .
+
+				# runs minimap2 (a mapping alingment search) for each barcode to the database of choice and produces samtools output
+				$minimap_path/minimap2 -ax map-ont -t $minimap_threads --secondary=no $database $infile > all_filt_minimap.sam &
+				((COUNTER=COUNTER+1))
+				if (($COUNTER == $barcode_threads))
+				then
+					wait
+					let COUNTER=0
+				fi
+		#		rm $database
+				cd ../..
 			fi
-	#		rm $database
-			cd ../..
-		fi
-	done
-	wait
+		done
+		wait
+	else
+		echo "No reference database"
+	fi
 fi
 
 # check to see if we are skipping samtools
@@ -186,7 +193,7 @@ do
 	fi
 done
 
-} &> "$file_name_stamped"
+} &> "$session_log_file"
 
 # if you made it to here without an error, write to session log file
 echo "quick_dirty_minimap.sh completed without error" >> $session_log_file
