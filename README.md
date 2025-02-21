@@ -121,8 +121,7 @@ Rscript make_phyloseq.R ITS1F4 UNITE
 ### 0. primer_seqs.sh
 
 #### Usage:
-
-		NA
+NA
 
 #### Description:
 This is not a command to run; this file contains all the information about primers and primer sequences that you may want to select from using the command line call; this script can be edited to add additional information in the same format that it is set up for GNU BASH langauge.
@@ -159,31 +158,38 @@ This script does the following
 
 #### Options (and default values)
 
-#####General
->	-p primer_pair='ITS1F4'		- the primer pair you want to use
->	-x skip_to_cut_adapt='F'	- whether to skip nanoplot & nanofilt and go straight to cutadapt
->	-L session_log_file="\[-p primer_pair\].log" 
->		name of log file where you are keeping track of all the commands
->		you are running and with which parameters (automatically supplies
->		one based on primer pair)
+##### General
+```
+	-p primer_pair='ITS1F4'		- the primer pair you want to use
+	-x skip_to_cut_adapt='F'	- whether to skip nanoplot & nanofilt and go straight to cutadapt
+	-L session_log_file="\[-p primer_pair\].log" 
+		name of log file where you are keeping track of all the commands
+		you are running and with which parameters (automatically supplies
+		one based on primer pair)
+```
 
-#####NanoFilt Options
->	-q quality_cutoff=15	- the quality cutoff for nanofilt
->	-m min_length=200		- the minimum length for nanofilt
->	-M max_length=2000		- the maximum read length for nanofilt
->	-c head_crop=50			- the number of leading bases for nanofilt to trim
+##### NanoFilt Options
+```
+	-q quality_cutoff=15	- the quality cutoff for nanofilt
+	-m min_length=200		- the minimum length for nanofilt
+	-M max_length=2000		- the maximum read length for nanofilt
+	-c head_crop=50			- the number of leading bases for nanofilt to trim
+```
 
-#####CutAdapt Options
->	-e adapter_error=.1    - adapter error rate
->	-o adapter_overlap=15  - the amount of overlap allowed
->	-x cpu_cores=8         - number of cores to use for cut adapt
+##### CutAdapt Options
+```
+	-e adapter_error=.1    - adapter error rate
+	-o adapter_overlap=15  - the amount of overlap allowed
+	-x cpu_cores=8         - number of cores to use for cut adapt
+```
 
-#####NanoPlot Options
->	-N nanoplot_all='T'  - whether to make a nanoplot for all seqs combined
->	-n nanoplot_each='T' - whether to make a nanoplot for each barcode
+##### NanoPlot Options
+```
+	-N nanoplot_all='T'  - whether to make a nanoplot for all seqs combined
+	-n nanoplot_each='T' - whether to make a nanoplot for each barcode
+```
 
-
-#### Output files:
+##### Output files:
 ```
 barcodeXX/nanoplot files
 barcodeXX/all_filt_concatenated.fasta (before cutadapt)
