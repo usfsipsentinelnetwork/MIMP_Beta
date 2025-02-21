@@ -1,16 +1,17 @@
 # MIMP_Beta: MinIon Metabarcoding Pipeline
 
-		LAST UPDATED JAN 13 2025
+LAST UPDATED FEB 21 2025
 
-		++++++++++++++++++++++++++++++++++++++++++++
-		++                                        ++
-		++   MIMP: MinIon Metabarcoding Pipeline  ++
-		++   ===================================  ++
-		++                                        ++
-		++      (C) Geoffrey Williams 2025        ++
-		++                                        ++
-		++++++++++++++++++++++++++++++++++++++++++++
-
+<span style="font-family: 'Console';">
+++++++++++++++++++++++++++++++++++++++++++++
+++                                        ++
+++   MIMP: MinIon Metabarcoding Pipeline  ++
+++   ===================================  ++
+++                                        ++
+++      (C) Geoffrey Williams 2025        ++
+++                                        ++
+++++++++++++++++++++++++++++++++++++++++++++
+</span>
 
 ## I. About 
 
@@ -18,16 +19,16 @@ MIMP (MinIon Metabarcoding Pipeline) features executable shell scripts to which 
 
 Currently the implementation is simple. MIMP only currently supports a basic high level (ie >= genus) amplicon pipeline
 
-		a) "Quick & Dirty" which relies solely on alignment to the UNITE database.
+a) "Quick & Dirty" which relies solely on alignment to the UNITE database.
 
 **NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete):
 MIMP will also support
 
-		b) "De Novo" which uses preliminary UNITE alignments to inform within-taxon clustering (based on rarefied subsample of sequences) and re-alignment to resulting consensus sequences which can be BLASTed to a custom database (ie NCBI), for long-read amplicon metabarcoding. MIMP also supports
+b) "De Novo" which uses preliminary UNITE alignments to inform within-taxon clustering (based on rarefied subsample of sequences) and re-alignment to resulting consensus sequences which can be BLASTed to a custom database (ie NCBI), for long-read amplicon metabarcoding. MIMP also supports
 
 MIMP is built from a preliminary version that can be used to assemble reads for Sanger-like purposes, while dealing with contaminants (which is not possible with Sanger). This functionality makes it well suited for sequencing from fungi in situ, provided a low level of contamination by other fungi:
 
-		c) processing amplicon data from single-sample libraries (MIMP "Sanger"). 
+c) processing amplicon data from single-sample libraries (MIMP "Sanger"). 
 
 ## II. Dependencies
 
@@ -56,7 +57,7 @@ Notes for MSU ICER users for installation on development nodes (2/20/2025)
 
 You will need the executable, dnadist from phylip. Download it directly with the following command
 
-		wget -O dnadist https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta/raw/refs/heads/main/Final_scripts/dnadist
+code/wget -O dnadist https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta/raw/refs/heads/main/Final_scripts/dnadist
 	
 You may run into issues loading, check the output and try the different versions. This order worked on 2/20/2025 on devel node dev-amd24. Then you should be able to load the following (note these depend on gcc version 12.3). Run the following code in this order to load the dependencies
 
