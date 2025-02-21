@@ -103,17 +103,6 @@ current_time=$(date "+%Y.%m.%d-%H.%M.%S")
 file_name="trim_and_sort-log"
 file_name_stamped=$file_name.$current_time.log
 
-# from here on, all output is rerouted to the log file unless otherwise specified
-{
-# first output command call to the log file just for this call
-echo "running trim_and_sort.sh -p $primer_pair -q $quality_cutoff -m $min_length -M $max_length -c $head_crop -e $adapter_error -o $adapter_overlap -N $nanoplot_all -n $nanoplot_each -x $cpu_cores -s $skip_to_cut_adapt -L $session_log_file"
-
-# first need to check to make sure the primer name used is in the file
-if [[ $index == -1 ]]; then
-	echo "no primerset named $primer_pair"
-	exit 1
-fi
-
 # if session log file name not supplied, create one (e.g., ITS54.log)
 if [[ $session_log_file == "" ]]; then
 	session_log_file=$file_name_stamped
@@ -125,9 +114,20 @@ if ! [[ -f $session_log_file ]]; then
 fi
 
 # next output command and options to the session log file:
+
+# from here on, all output is rerouted to the log file unless otherwise specified
+{
+# first output command call to the log file just for this call
+echo "running trim_and_sort.sh -p $primer_pair -q $quality_cutoff -m $min_length -M $max_length -c $head_crop -e $adapter_error -o $adapter_overlap -N $nanoplot_all -n $nanoplot_each -x $cpu_cores -s $skip_to_cut_adapt -L $session_log_file"
 echo $current_time: >> $session_log_file
-echo "trim_and_sort.sh -p $primer_pair -q $quality_cutoff -m $min_length -M $max_length -c $head_crop -e $adapter_error -o $adapter_overlap -N $nanoplot_all -n $nanoplot_each -x $cpu_cores -s $skip_to_cut_adapt -L $session_log_file" >> $session_log_file
+#echo "trim_and_sort.sh -p $primer_pair -q $quality_cutoff -m $min_length -M $max_length -c $head_crop -e $adapter_error -o $adapter_overlap -N $nanoplot_all -n $nanoplot_each -x $cpu_cores -s $skip_to_cut_adapt -L $session_log_file" >> $session_log_file
 echo "..." >> $session_log_file
+
+# first need to check to make sure the primer name used is in the file
+if [[ $index == -1 ]]; then
+	echo "no primerset named $primer_pair"
+	exit 1
+fi
 
 # runs nanoplot FOR ALL THE READS (summary and visualization of quality and length, distribution etc. after basecalling)
 if [[ $nanoplot_all == 'T' ]]; then

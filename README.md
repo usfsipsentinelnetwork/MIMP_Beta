@@ -60,6 +60,8 @@ You will need the executable, dnadist from phylip. Download it directly with the
 	
 You may run into issues loading, check the output and try the different versions. This order worked on 2/20/2025 on devel node dev-amd24. Then you should be able to load the following (note these depend on gcc version 12.3). Run the following code in this order to load the dependencies
 
+The first time you run this you should do this.
+
 		module load AOCC/4.0.0-GCCcore-12.3.0     #First, you are going to need to update the C compiler (for mafft)
 		module load Python/3.11.3-GCCcore-12.3.0  # and python
 		pip install NanoPlot
@@ -71,6 +73,17 @@ You may run into issues loading, check the output and try the different versions
 		module load minimap2/2.26-GCCcore-12.3.0
 		module load SAMtools/1.18-GCC-12.3.0
 		module load Mothur/1.48.0-foss-2023a-Python-3.11.3
+
+In the future, you can put the rest in a script, without reinstalling the python packages
+
+		module load AOCC/4.0.0-GCCcore-12.3.0     #First, you are going to need to update the C compiler (for mafft)
+		module load Python/3.11.3-GCCcore-12.3.0  # and python
+		module load MAFFT/7.520-GCC-12.3.0-with-extensions
+		module load R-bundle-Bioconductor/3.18-foss-2023a-R-4.3.2 # loads R, needed packages, and the BiocManager packages
+		module load minimap2/2.26-GCCcore-12.3.0
+		module load SAMtools/1.18-GCC-12.3.0
+		module load Mothur/1.48.0-foss-2023a-Python-3.11.3
+		export PATH=$(pwd)/.local/bin:$PATH   #To add to the directory (careful, if you get this wrong you may have to log out and back in)
 
 That should be everything you need! If doing this on a job node, you will need to write a submission script. You can include the module load code in the script but may want to test it out first.
 
@@ -87,6 +100,15 @@ Needed for workflows (b) - "de novo" & (c) "Sanger"
 In order to run this pipeline, you should have your output from basecalling arranged into folders "barcode01" or "barcode1" through "barcode**" and the following scripts in the folders, 
 
 MIMP "Quick & Dirty": output OTU table/ phyloseq object solely on alignment to the UNITE database.
+
+### Example protocol
+
+In order to run this, you should download the repository and have the scripts in the parent directory containing your folders for each barcode. In this case, the primer sequences had been mostly trimmed off along with the adapters and there was very low quality, so we adjusted the options. You'll also want to install the UNITE database. In this instance, its in my home folder (~).
+
+		running trim_and_sort.sh -p ITS1F4 -q 10 -m 150 -M 2000 -c 0 -e .1 -o 1 -N T -n T -x 8 -s F
+		sh quick_dirty_minimap.sh -p ITS1F4 -q 10 -d ~/sh_general_release_dynamic_s_all_04.04.2024_dev.fasta -i all_filt_reorient.fasta -b 4 -t 4 -m 300 -P minimap2 -s F -S F
+		bash get_minimap_output.sh -p ITS1F4
+		Rscript make_phyloseq.R ITS1F4 UNITE
 
 ### 0. primer_seqs.sh
 
