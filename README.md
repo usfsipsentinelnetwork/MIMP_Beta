@@ -103,10 +103,10 @@ MIMP "Quick & Dirty": output OTU table/ phyloseq object solely on alignment to t
 
 ### Example protocol
 
-In order to run this, you should download the repository and have the scripts in the parent directory containing your folders for each barcode. In this case, the primer sequences had been mostly trimmed off along with the adapters and there was very low quality, so we adjusted the options. You'll also want to install the UNITE database. In this instance, its in my home folder (~).
+In order to run this, you should download the repository and have the scripts in the parent directory containing your folders for each barcode. In this case, the primer sequences had been mostly trimmed off along with the adapters and there was very low quality, so we adjusted the options. You'll also want to install the UNITE database. In this instance, its in my home folder (~). For the most part I've only modified options that deviate from default settings. In the log file, you can see the entire call. Note that the Rscript step does not produce a log file.
 
-		running trim_and_sort.sh -p ITS1F4 -q 10 -m 150 -M 2000 -c 0 -e .1 -o 1 -N T -n T -x 8 -s F
-		sh quick_dirty_minimap.sh -p ITS1F4 -q 10 -d ~/sh_general_release_dynamic_s_all_04.04.2024_dev.fasta -i all_filt_reorient.fasta -b 4 -t 4 -m 300 -P minimap2 -s F -S F
+		bash trim_and_sort.sh -p ITS1F4 -q 10 -m 150 -c 0 -o 1
+		bash quick_dirty_minimap.sh -p ITS1F4 -d ~/sh_general_release_dynamic_s_all_04.04.2024_dev.fasta
 		bash get_minimap_output.sh -p ITS1F4
 		Rscript make_phyloseq.R ITS1F4 UNITE
 
