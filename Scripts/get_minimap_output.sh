@@ -35,7 +35,7 @@ done
 
 # check for primer name
 if (( $primer_pair == '' )); then
-	echo "you must specify -p primer_pair folder name..."
+	echo "You must specify -p primer_pair folder name..."
 	exit 1
 fi
 
