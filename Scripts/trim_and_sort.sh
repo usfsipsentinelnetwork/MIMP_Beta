@@ -162,13 +162,13 @@ do
 			#pwd
 			
 			count=`ls all*fas* 2>/dev/null | wc -l`
-			if [ $count != 0 ]; then
+			if (( $count > 0 )); then
 			#if ls all*fas* 1> /dev/null 2>&1; then # new
 				rm all*fas*
 			fi # new
 			
 			count=`ls *.fastq 2>/dev/null | wc -l`
-			if [ $count != 0 ]; then
+			if (( $count > 0 )); then
 			#if ls *.fastq 1> /dev/null 2>&1; then # new
 				cat *.fastq > all.fastq
 				
@@ -200,10 +200,11 @@ do
 				echo "No fastq files in $folder. make sure they are decompressed."
 			fi
 		fi
-		echo "Running cutadapt on $folder to fasta format for ${ARRAY_FOLDERS[index]}"
+		echo "Running cutadapt on $folder for ${ARRAY_FOLDERS[index]}"
 		
-		#count=`ls *.fastq 2>/dev/null | wc -l`
-		if [ -f all.fastq ]; then
+		count=`ls all.fastq 2>/dev/null | wc -l`
+		if (( $count > 0 )); then
+		#if [ -f "all.fastq" ]; then
 			#if ls all.fastq 1> /dev/null 2>&1; then # new
 
 			# makes a new folder for the results for the primer set being used
@@ -216,9 +217,9 @@ do
 
 			DIRECTORY=${ARRAY_FOLDERS[index]}
 			
-			if [ -d "$DIRECTORY" ]; then
+			if [ -d $DIRECTORY ]; then
 				echo "Folder already exists for primer set $DIRECTORY in $folder. removing..."
-				rm -r ${ARRAY_FOLDERS[index]}
+				rm -Rf ${ARRAY_FOLDERS[index]}
 				mkdir ${ARRAY_FOLDERS[index]}
 			else
 				echo "Making folder for $DIRECTORY in $folder..."
@@ -248,7 +249,7 @@ do
 			# remove file with less than 3 reads for the whole barcode
 			if (( $myfilesize1 < 6 ))
 			then
-				rm -R ${ARRAY_FOLDERS[index]}
+				rm -Rf ${ARRAY_FOLDERS[index]}
 			fi
 		fi
 		cd ..
