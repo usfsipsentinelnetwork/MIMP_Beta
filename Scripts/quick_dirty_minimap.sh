@@ -124,7 +124,7 @@ then
 	#			cp ../../$database .
 
 				# runs minimap2 (a mapping alingment search) for each barcode to the database of choice and produces samtools output
-				$minimap_path/minimap2 -ax map-ont -t $minimap_threads --secondary=no $database $infile > all_filt_minimap.sam &
+				$minimap_path -ax map-ont -t $minimap_threads --secondary=no $database $infile > all_filt_minimap.sam &
 				((COUNTER=COUNTER+1))
 				if (($COUNTER == $barcode_threads))
 				then
