@@ -2,7 +2,7 @@
 
 LAST UPDATED FEB 21 2025
 
-<span style="font-family: 'Console';">
+```
 ++++++++++++++++++++++++++++++++++++++++++++
 ++                                        ++
 ++   MIMP: MinIon Metabarcoding Pipeline  ++
@@ -11,7 +11,7 @@ LAST UPDATED FEB 21 2025
 ++      (C) Geoffrey Williams 2025        ++
 ++                                        ++
 ++++++++++++++++++++++++++++++++++++++++++++
-</span>
+```
 
 ## I. About 
 
@@ -57,8 +57,9 @@ Notes for MSU ICER users for installation on development nodes (2/20/2025)
 
 You will need the executable, dnadist from phylip. Download it directly with the following command
 
-######
-code/wget -O dnadist https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta/raw/refs/heads/main/Final_scripts/dnadist
+```
+wget -O dnadist https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta/raw/refs/heads/main/Final_scripts/dnadist
+```
 	
 You may run into issues loading, check the output and try the different versions. This order worked on 2/20/2025 on devel node dev-amd24. Then you should be able to load the following (note these depend on gcc version 12.3). Run the following code in this order to load the dependencies
 
