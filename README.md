@@ -74,7 +74,7 @@ The first time you run this you should do this.
 		module load SAMtools/1.18-GCC-12.3.0
 		module load Mothur/1.48.0-foss-2023a-Python-3.11.3
 
-In the future, you can put the rest in a script, without reinstalling the python packages
+In the future, you can put the rest in a script, without reinstalling the python packages. You'll need to load these every time you run the pipeline.
 
 		module load AOCC/4.0.0-GCCcore-12.3.0     #First, you are going to need to update the C compiler (for mafft)
 		module load Python/3.11.3-GCCcore-12.3.0  # and python
