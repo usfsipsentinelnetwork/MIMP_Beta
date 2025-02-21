@@ -19,16 +19,16 @@ MIMP (MinIon Metabarcoding Pipeline) features executable shell scripts to which 
 
 Currently the implementation is simple. MIMP only currently supports a basic high level (ie >= genus) amplicon pipeline
 
-a) "Quick & Dirty" which relies solely on alignment to the UNITE database.
+1. "Quick & Dirty" which relies solely on alignment to the UNITE database.
+	- **NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete):
 
-**NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete):
 MIMP will also support
 
-b) "De Novo" which uses preliminary UNITE alignments to inform within-taxon clustering (based on rarefied subsample of sequences) and re-alignment to resulting consensus sequences which can be BLASTed to a custom database (ie NCBI), for long-read amplicon metabarcoding. MIMP also supports
+2. "De Novo" which uses preliminary UNITE alignments to inform within-taxon clustering (based on rarefied subsample of sequences) and re-alignment to resulting consensus sequences which can be BLASTed to a custom database (ie NCBI), for long-read amplicon metabarcoding. MIMP also supports
 
 MIMP is built from a preliminary version that can be used to assemble reads for Sanger-like purposes, while dealing with contaminants (which is not possible with Sanger). This functionality makes it well suited for sequencing from fungi in situ, provided a low level of contamination by other fungi:
 
-c) processing amplicon data from single-sample libraries (MIMP "Sanger"). 
+3. processing amplicon data from single-sample libraries: [MIMP "Sanger"](usfsipsentinelnetwork/MinIon_Sanger_Beta)
 
 ## II. Dependencies
 
@@ -39,8 +39,6 @@ For Workflow (a) - "quick and dirty"
 * minimap2
 * samtools
 * python   - check is likely already loaded/installed
-* mafft    - may need mpi version
-* mothur
 * R (and various R packages)
 	* dplyr (NOTE: early versions needed dplyr-devel but should not any more)
 	* tidyr
@@ -51,6 +49,12 @@ For Workflow (a) - "quick and dirty"
 		* progress
 		* foreach
 		* doSNOW
+
+For Workflow (b) - "de novo" and Workflow (3): [MIMP "Sanger"](usfsipsentinelnetwork/MinIon_Sanger_Beta)
+-----------------------------------
+
+* mafft    - may need mpi version
+* mothur
 
 Notes for MSU ICER users for installation on development nodes (2/20/2025)
 --------------------------------------------------------------------------
