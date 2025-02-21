@@ -161,11 +161,15 @@ do
 			#echo "you are here (4):"
 			#pwd
 			
-			if ls all*fas* 1> /dev/null 2>&1; then # new
+			count=`ls all*fas* 2>/dev/null | wc -l`
+			if [ $count != 0 ]; then
+			#if ls all*fas* 1> /dev/null 2>&1; then # new
 				rm all*fas*
 			fi # new
 			
-			if ls *.fastq 1> /dev/null 2>&1; then # new
+			count=`ls *.fastq 2>/dev/null | wc -l`
+			if [ $count != 0 ]; then
+			#if ls *.fastq 1> /dev/null 2>&1; then # new
 				cat *.fastq > all.fastq
 				
 				# runs nanoplot FOR EACH BARCODE (summary and visualization of quality and length, distribution etc. after basecalling)
@@ -198,7 +202,9 @@ do
 		fi
 		echo "Running cutadapt on $folder to fasta format for ${ARRAY_FOLDERS[index]}"
 		
-		if ls all.fastq 1> /dev/null 2>&1; then # new
+		#count=`ls *.fastq 2>/dev/null | wc -l`
+		if [ -f all.fastq ]; then
+			#if ls all.fastq 1> /dev/null 2>&1; then # new
 
 			# makes a new folder for the results for the primer set being used
 			#		if [ -d "${ARRAY_FOLDERS[index]}" ]; then
@@ -208,14 +214,25 @@ do
 			#			mkdir ${ARRAY_FOLDERS[index]}
 			#		fi
 
-			if [ -d "${ARRAY_FOLDERS[index]}" ]; then
-				echo "Folder already exists for primer set ${ARRAY_FOLDERS[index]} in $folder. removing..."
-				rm -r "${ARRAY_FOLDERS[index]}"
-				mkdir "${ARRAY_FOLDERS[index]}"
+			DIRECTORY=${ARRAY_FOLDERS[index]}
+			
+			if [ -d "$DIRECTORY" ]; then
+				echo "Folder already exists for primer set $DIRECTORY in $folder. removing..."
+				rm -r ${ARRAY_FOLDERS[index]}
+				mkdir ${ARRAY_FOLDERS[index]}
 			else
-				echo "Making folder for ${ARRAY_FOLDERS[index]} in $folder..."
-				mkdir "${ARRAY_FOLDERS[index]}"
+				echo "Making folder for $DIRECTORY in $folder..."
+				mkdir ${ARRAY_FOLDERS[index]}
 			fi
+			
+#			if [ -d "${ARRAY_FOLDERS[index]}" ]; then
+#				echo "Folder already exists for primer set ${ARRAY_FOLDERS[index]} in $folder. removing..."
+#				rm -r "${ARRAY_FOLDERS[index]}"
+#				mkdir "${ARRAY_FOLDERS[index]}"
+#			else
+#				echo "Making folder for ${ARRAY_FOLDERS[index]} in $folder..."
+#				mkdir "${ARRAY_FOLDERS[index]}"
+#			fi
 
 			cd ${ARRAY_FOLDERS[index]}
 			
