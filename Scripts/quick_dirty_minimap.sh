@@ -90,7 +90,7 @@ echo "running sh quick_dirty_minimap.sh -p $primer_pair -q $quality_cutoff -d $d
 
 # if session log file name not supplied, create one (e.g., ITS54.log)
 if [[ $session_log_file == "" ]]; then
-	log_file=$primer_pair.log
+	session_log_file=$file_name_stamped
 fi
 
 # if session log file by that name does not yet exist, create a file
