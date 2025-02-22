@@ -130,9 +130,8 @@ In order to run this version of the pipeline, you should download the repository
 primer_seqs.sh # with info on your primers
 trim_and_sort.sh
 quick_dirty_minimap.sh
-get_minimap_output.sh -p ITS1F4
-make_phyloseq.R ITS1F4 UNITE
-dnadist
+get_minimap_output.sh
+make_phyloseq.R
 ```
 
 ### Example protocol
