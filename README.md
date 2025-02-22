@@ -32,7 +32,7 @@ MIMP is built from a preliminary version that can be used to assemble reads for 
 
 ## II. Dependencies
 
-For Workflow (a) - "quick and dirty"
+For Workflow (1) - "quick and dirty"
 ------------------------------------
 * Linux, a mac, or some platform where you can run bash (virtual machine, docker, etc.)
 * nanofilt and NanoPlot
@@ -51,7 +51,7 @@ For Workflow (a) - "quick and dirty"
 		* foreach
 		* doSNOW
 
-For Workflow (b) - "de novo" and Workflow (3): [MIMP "Sanger"](usfsipsentinelnetwork/MinIon_Sanger_Beta)
+For Workflow (2) - "de novo" and Workflow (3): [MIMP "Sanger"](usfsipsentinelnetwork/MinIon_Sanger_Beta)
 -----------------------------------
 
 * mafft    - may need mpi version
@@ -60,7 +60,6 @@ For Workflow (b) - "de novo" and Workflow (3): [MIMP "Sanger"](usfsipsentinelnet
 Notes for MSU ICER users for installation on development nodes (2/20/2025)
 --------------------------------------------------------------------------
 
-	
 You may run into issues loading the modules below but this should work on ICER (MSU). If not, check the output and try the different versions. This order worked on 2/20/2025 on devel node dev-amd24. Then you should be able to load the following (note these depend on gcc version 12.3). Run the following code in this order to load the dependencies
 The first time you run this you should do this.
 ```
@@ -93,7 +92,7 @@ export PATH=$(pwd)/.local/bin:$PATH
 
 That should be everything you need! If doing this on a job node, you will need to write a submission script. You can include the module load code in the script but may want to test it out first.
 
-Needed for workflows (b) - "de novo" & (c) "Sanger"
+Needed only for workflows (2) - "de novo" & (3) "Sanger"
 ---------------------------------------------------
 * All of the above
 * For the MIMP "de novo" only (see below), you will need mafft and mothur. After the above, load them as follows...
