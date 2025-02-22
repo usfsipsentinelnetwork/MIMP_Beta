@@ -31,8 +31,7 @@ MIMP will also support:
 
 	> **NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete):
 
-**3. processing amplicon data from single-sample libraries:**
-[MinIon_Sanger_Beta](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta)
+**3. [MinIon_Sanger_Beta](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta): Processing amplicon data from one to many single-sample amplicon reactions pooled in the same libraries (with contamination)**
 
 MIMP is built from a preliminary version that can be used to assemble reads for Sanger-like purposes, while dealing with contaminants (which is not possible with Sanger). This functionality makes it well suited for sequencing from fungi in situ, provided a low level of contamination by other fungi:
 
