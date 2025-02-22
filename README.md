@@ -215,7 +215,7 @@ bash trim_and_sort.sh [-p primer_pair] [-q quality_cutoff] [-m min_length] [-M m
 #### Description:
 This script does the following
 1. runs nanoplot (summary and visualization of quality and length, distribution etc. after basecalling)
-	> NOTE: Typically, after trim_and_sort.sh, you will want to look at the nanoplot results (.html files) and potentially rerun with adjusted options as needed. If you are using default settings with very low quality or incorrectly or wierdly preprocessed/basecalled/demuiltiplexed sequences, you may get errors. Always know what was done in terms of the kit used, basecalling methods, etc. to streamline troubleshooting.
+	> NOTE: Typically, after trim_and_sort.sh, you will want to look at the nanoplot results (.html files) and potentially rerun with adjusted options as needed. If you are using default settings with very low quality or incorrectly or wierdly preprocessed/basecalled/demuiltiplexed sequences, you may get errors. Always know what was done in terms of the kit used, basecalling methods, etc. to streamline troubleshooting. At that point you can use the -x option to save time and skip nanoplot and nanofilt to head straight to cutadapt. But thats assuming you don't need to adjust nanofilt options, which include head crop (-c), quality filtering (-q), and min and max length (-m and -M). These are all parameters that viewing the results from nanoplot can help you choose.
 
 2. runs nanofilt (filters by q score, sequence length, and trims some reads like adapters from the reads)
 3. converts file to fasta format and shortens names of sequences in fasta sample headers for downstream compatibility
