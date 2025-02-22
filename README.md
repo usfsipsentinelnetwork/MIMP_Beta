@@ -363,7 +363,7 @@ cluster_by_taxon/taxid_seqid.tsv
 cluster_by_taxon/fasta_folder/cluster_xxx.fa
 ```
 
-#### **cluster_by_taxon_p1_parallel.R**
+#### 5a. cluster_by_taxon_p1_parallel.R
 >**NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete)
 
 ##### Usage:
@@ -378,7 +378,7 @@ Tabulates seqids by taxon and outputs them to a file
 ```
 1 [primer_pair]        - the primer pair name (current default 'ITS1FLR3')
 2 [infilename]         - .RData file containing phyloseq object from quick_and_dirty and make_phyloseq
-						  Default: paste("minimap_",primer_pair,"/Phyloseq_Outfile_MIMP_",primer_pair,".RData",sep="")
+                          Default: paste("minimap_",primer_pair,"/Phyloseq_Outfile_MIMP_",primer_pair,".RData",sep="")
 3 [kingdom_column]     - informs the script which column of the in file tax table contains kingdom information, for compatibility with samtools/minimap2 output from various databases
 4 [threads]            - number of threads to run
 ```
@@ -388,7 +388,7 @@ Tabulates seqids by taxon and outputs them to a file
 cluster_by_taxon/taxid_seqid.tsv
 ```
 			
-#### cluster_by_taxon_p2_parallel.R	
+#### 5b. cluster_by_taxon_p2_parallel.R	
 >**NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete)
 
 ##### Usage:
@@ -403,7 +403,7 @@ Uses output from p2 to aggregate sequences at the desired taxonomic and rarefact
 ```
 1 [primer_pair]         - the primer pair name (current default 'ITS1FLR3')
 2 [infilename]          - .RData file containing phyloseq object from quick_and_dirty and make_phyloseq
-	                       Default: paste("minimap_",primer_pair,"/Phyloseq_Outfile_MIMP_",primer_pair,".RData",sep="")
+                            Default: paste("minimap_",primer_pair,"/Phyloseq_Outfile_MIMP_",primer_pair,".RData",sep="")
 3 [singleton_cutoff]    - minimum number of sequences to carry forward from a given taxonomic assignment
 4 [taxon_level]         - the taxonomic level at which to aggregate and subset sequences 
 5 [rarefaction_level]   - the number of sequences to randomly subset from each taxonid
@@ -418,15 +418,15 @@ Uses output from p2 to aggregate sequences at the desired taxonomic and rarefact
 cluster_by_taxon/fasta_folder/cluster_xxx.fa
 ```
 
-#### 6. **align_and_cluster_subtaxon.sh**
+### 6. align_and_cluster_subtaxon.sh
 >**NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete)
 
-##### Usage:
+#### Usage:
 ```
 bash align_and_cluster_subtaxon.sh [-t subtaxon_alignment_threads] [-m mafft_threads] [-p phylip_threads] [-c mothur_threads] [-P mothur_path] [-A alignment only] [-D distance only] [-S subtaxon clustering only] [-B post subtaxon bin seqs only] [-C consensus sequences only] [-W pairwise alignment only] [-R resume task] [-i input directory to look for fasta files] [-o output directory for mothur] [-L session log file] [-h display this help message]
 ```
 
-##### Description:
+#### Description:
 This script is a dynamic command that performs several tasks to ulimately cluster and generate consensus sequences:
 1. generates mafft alignment-based OR mothur pairwise.dist-based distance matrices
 	1 .a.1 mafft
@@ -437,10 +437,10 @@ This script is a dynamic command that performs several tasks to ulimately cluste
 3. "bin seqs" with mothur bin.seqs at the chosen distance cutoff label
 4.  subsequent alignments of sequences within the subtaxon clusters and generation of consensus sequences
 			
-##### Options
+#### Options
 >(note some options are currently applied for different specifications in multiple steps):
 			
-###### General Options:
+##### General Options:
 ```
 -P mothur_path='~/mothur/mothur'
 -i input_fasta_directory='taxon_cluster'
@@ -457,7 +457,7 @@ This script is a dynamic command that performs several tasks to ulimately cluste
      - specifies name of log file (default align_and_cluster_subtaxon.log)
 ```		
 
-###### MAFFT and phylip alignment and distance options (i.a)
+##### MAFFT and phylip alignment and distance options (i.a)
 ```
 -t subtaxon_alignment_threads=4 - number of instances of mafft to run
 -m mafft_threads=4              - number of threads to run in mafft
@@ -465,18 +465,18 @@ This script is a dynamic command that performs several tasks to ulimately cluste
 -R resume='F'                   - pick up where left off (currently only implemented here)
 ```
 
-###### mothur pairwise.dist Options
+##### mothur pairwise.dist Options
 ```
 -c mothur_threads=16  - number of instance of mothur to run
 ```
 				
-###### Subtaxon clustering (mothur cluster.classic)
+##### Subtaxon clustering (mothur cluster.classic)
 ```
 -t subtaxon_alignment_threads=4	- number of instances of mothur to run
 	[NOTE: need to implement directory specification]
 ```
 
-##### Output files:
+#### Output files:
 ```
 i.a.1   taxon_alignments/*.maf
 i.a.2   distance_matrices/*.maf.dist
