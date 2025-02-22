@@ -338,17 +338,17 @@ Uses output from preliminary quick and dirty minimap2 to do run the following R 
 
 #### Options:
 ```
--p primer_pair='ITS54'		- the primer pair name (current default 'ITS1FLR3')
--f psfilename=''			- .RData file containing phyloseq object from quick_and_dirty and make_phyloseq
--l taxonlevel='genus'		- the taxonomic level at which to aggregate and subset sequences 
--s singleton_cutoff=20		- minimum number of sequences to carry forward from a given taxonomic assignment
--r rarefaction_level=1000	- the number of sequences to randomly subset from each taxonid
--k kingdom_column=3			- informs the script which column of the in file tax table contains kingdom information, for compatibility with samtools/minimap2 output from various databases
--t threads=8				- the number of threads to run
--T tabulate_only='F'		- whether to only run cluster_by_taxon_p1_parallel.R, which produces a seqid-by-taxid table cluster_by_taxon/taxid_seqid.tsv
--A aggregate_only='F'		- whether to only run cluster_by_taxon_p2_parallel.R, which does the aggregation by taxon and rarefaction
+-p primer_pair='ITS54'      - the primer pair name (current default 'ITS1FLR3')
+-f psfilename=''            - .RData file containing phyloseq object from quick_and_dirty and make_phyloseq
+-l taxonlevel='genus'       - the taxonomic level at which to aggregate and subset sequences 
+-s singleton_cutoff=20      - minimum number of sequences to carry forward from a given taxonomic assignment
+-r rarefaction_level=1000   - the number of sequences to randomly subset from each taxonid
+-k kingdom_column=3         - informs the script which column of the in file tax table contains kingdom information, for compatibility with samtools/minimap2 output from various databases
+-t threads=8                - the number of threads to run
+-T tabulate_only='F'        - whether to only run cluster_by_taxon_p1_parallel.R, which produces a seqid-by-taxid table cluster_by_taxon/taxid_seqid.tsv
+-A aggregate_only='F'       - whether to only run cluster_by_taxon_p2_parallel.R, which does the aggregation by taxon and rarefaction
 -R fasta_folder='taxon_cluster' - folder to which to save the taxon-aggregated, rarefied fasta files
--F resume='F'				- a flag to tell the script to resume [?RESUME WHAT?] where it left off	
+-F resume='F'                   - a flag to tell the script to resume [?RESUME WHAT?] where it left off	
 -L session_log_file="[-p primer_pair].log" 
 		name of log file where you are keeping track of all the commands
 		you are running and with which parameters (automatically supplies
@@ -374,11 +374,11 @@ Tabulates seqids by taxon and outputs them to a file
 
 ##### Options:
 ```
-1 [primer_pair] - the primer pair name (current default 'ITS1FLR3')
-2 [infilename]	- .RData file containing phyloseq object from quick_and_dirty and make_phyloseq
-						Default: paste("minimap_",primer_pair,"/Phyloseq_Outfile_MIMP_",primer_pair,".RData",sep="")
-3 [kingdom_column] 	- informs the script which column of the in file tax table contains kingdom information, for compatibility with samtools/minimap2 output from various databases
-4 [threads]  		- number of threads to run
+1 [primer_pair]        - the primer pair name (current default 'ITS1FLR3')
+2 [infilename]         - .RData file containing phyloseq object from quick_and_dirty and make_phyloseq
+						  Default: paste("minimap_",primer_pair,"/Phyloseq_Outfile_MIMP_",primer_pair,".RData",sep="")
+3 [kingdom_column]     - informs the script which column of the in file tax table contains kingdom information, for compatibility with samtools/minimap2 output from various databases
+4 [threads]            - number of threads to run
 ```
 
 ##### Output:
@@ -399,16 +399,16 @@ Uses output from p2 to aggregate sequences at the desired taxonomic and rarefact
 
 ##### Options:
 ```
-1 [primer_pair] 		- the primer pair name (current default 'ITS1FLR3')
-2 [infilename]			- .RData file containing phyloseq object from quick_and_dirty and make_phyloseq
-	Default: paste("minimap_",primer_pair,"/Phyloseq_Outfile_MIMP_",primer_pair,".RData",sep="")
-3 [singleton_cutoff] 	- minimum number of sequences to carry forward from a given taxonomic assignment
-4 [taxon_level]			- the taxonomic level at which to aggregate and subset sequences 
-5 [rarefaction_level]	- the number of sequences to randomly subset from each taxonid
-6 [threads]				- the number of threads to run
-7 [kingdom_column]		- informs the script which column of the in file tax table contains kingdom information, for compatibility with samtools/minimap2 output from various databases
-8 [fasta_folder]		- folder to which to save the taxon-aggregated, rarefied fasta files
-9 [resume]				- a flag to tell the script to resume [?RESUME WHAT?] where it left off	
+1 [primer_pair]         - the primer pair name (current default 'ITS1FLR3')
+2 [infilename]          - .RData file containing phyloseq object from quick_and_dirty and make_phyloseq
+	                       Default: paste("minimap_",primer_pair,"/Phyloseq_Outfile_MIMP_",primer_pair,".RData",sep="")
+3 [singleton_cutoff]    - minimum number of sequences to carry forward from a given taxonomic assignment
+4 [taxon_level]         - the taxonomic level at which to aggregate and subset sequences 
+5 [rarefaction_level]   - the number of sequences to randomly subset from each taxonid
+6 [threads]             - the number of threads to run
+7 [kingdom_column]      - informs the script which column of the in file tax table contains kingdom information, for compatibility with samtools/minimap2 output from various databases
+8 [fasta_folder]        - folder to which to save the taxon-aggregated, rarefied fasta files
+9 [resume]              - a flag to tell the script to resume [?RESUME WHAT?] where it left off	
 ```
 
 ##### Output:
@@ -441,28 +441,31 @@ This script is a dynamic command that performs several tasks to ulimately cluste
 ###### General Options:
 ```
 -P mothur_path='~/mothur/mothur'
--i input_fasta_directory='taxon_cluster' 		- input directory for mothur to look for fasta files
--o output_mothur_directory='distance_matrices' 	- directory where mothur saves output files (may need to change depending on steps being run)
--A 												- only performs the first MAFFT alignment step (i.a.1)
--D												- only performs the phylip dnadist step (i.a.2)
--S												- only performs "subtaxon" clustering (ii) in mothur
--B												- only runs mothur bin.seqs
--C												- only does subtaxon alignments and consensus sequence calling
--W												- generates pairwise distance matrices in mothur with pairwise.dist
--L session_log_file=""							- specifies name of log file (default align_and_cluster_subtaxon.log)
+-i input_fasta_directory='taxon_cluster'
+     - input directory for mothur to look for fasta files
+-o output_mothur_directory='distance_matrices'
+     - directory where mothur saves output files (may need to change depending on steps being run)
+-A   - only performs the first MAFFT alignment step (i.a.1)
+-D   - only performs the phylip dnadist step (i.a.2)
+-S   - only performs "subtaxon" clustering (ii) in mothur
+-B   - only runs mothur bin.seqs
+-C   - only does subtaxon alignments and consensus sequence calling
+-W   - generates pairwise distance matrices in mothur with pairwise.dist
+-L session_log_file=""
+     - specifies name of log file (default align_and_cluster_subtaxon.log)
 ```		
 
 ###### MAFFT and phylip alignment and distance options (i.a)
 ```
--t subtaxon_alignment_threads=4	- number of instances of mafft to run
--m mafft_threads=4				- number of threads to run in mafft
--p phylip_threads=16			- number of instances of phylip to run
--R resume='F'					- pick up where left off (currently only implemented here)
+-t subtaxon_alignment_threads=4 - number of instances of mafft to run
+-m mafft_threads=4              - number of threads to run in mafft
+-p phylip_threads=16            - number of instances of phylip to run
+-R resume='F'                   - pick up where left off (currently only implemented here)
 ```
 
 ###### mothur pairwise.dist Options
 ```
--c mothur_threads=16			- number of instance of mothur to run
+-c mothur_threads=16  - number of instance of mothur to run
 ```
 				
 ###### Subtaxon clustering (mothur cluster.classic)
@@ -473,19 +476,19 @@ This script is a dynamic command that performs several tasks to ulimately cluste
 
 ##### Output files:
 ```
-i.a.1	taxon_alignments/*.maf
-i.a.2	distance_matrices/*.maf.dist
-i.b		output_mothur_directory/*.phylip.dist
-ii.		*.rabund [NOTE: need to implement directory specification]
-		*.sabund [NOTE: need to implement directory specification]
-		*.list [NOTE: need to implement directory specification]
-iii.	*.an.[cutoff].fasta [NOTE: need to implement directory specification]
-iv.		*.cons.denovo.python.fasta	- final seq file
-		*.cons.denovo.python.data	- data file
-		*.reformatted.fasta			- seq file
-		*.karuna.cons.ungap			- seq file
-		*.karuna.cons				- seq file
-		*.cons.data					- data file
+i.a.1   taxon_alignments/*.maf
+i.a.2   distance_matrices/*.maf.dist
+i.b     output_mothur_directory/*.phylip.dist
+ii.	    *.rabund [NOTE: need to implement directory specification]
+        *.sabund [NOTE: need to implement directory specification]
+        *.list [NOTE: need to implement directory specification]
+iii.    *.an.[cutoff].fasta [NOTE: need to implement directory specification]
+iv.     *.cons.denovo.python.fasta  - final seq file
+        *.cons.denovo.python.data   - data file
+        *.reformatted.fasta         - seq file
+        *.karuna.cons.ungap         - seq file
+        *.karuna.cons               - seq file
+        *.cons.data                 - data file
 ```
 
 ## c) MIMP "Sanger"
