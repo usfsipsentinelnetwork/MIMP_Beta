@@ -13,6 +13,9 @@ LAST UPDATED FEB 21 2025
 ++++++++++++++++++++++++++++++++++++++++++++
 ```
 
+##### Recommended citation
+>G. Williams, MIMP Beta: MinION Metabarcoding Pipeline (2025), GitHub repository, https://github.com/usfssentinelnetwork/MIMP_Beta
+
 ## I. About 
 
 MIMP (MinIon Metabarcoding Pipeline) features executable shell scripts to which one can pass arguments to augment a basic metabarcoding pipeline for processing multiplexed amplicon data from ONT MinIon, after basecalling.
