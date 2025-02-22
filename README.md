@@ -130,7 +130,8 @@ dnadist
 	git clone https://github.com/usfsipsentinelnetwork/MIMP_Beta
 	```
 
-> I recommend changing the name of the directory to your project
+> I recommend changing the name of the directory to your project\
+
 	```
 	mv MIMP_Beta Your_project_directory_name
 	```
