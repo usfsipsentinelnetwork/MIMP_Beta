@@ -124,9 +124,11 @@ make_phyloseq.R ITS1F4 UNITE
 dnadist
 ```
 
+>You'll also want to install the UNITE database. In the following instance, its in my home folder (~). 
+
 ### Example protocol
 
-In this case, the primer sequences had been mostly trimmed off along with the adapters and there was very low quality, so we adjusted the options. You'll also want to install the UNITE database. In this instance, its in my home folder (~). For the most part I've only modified options that deviate from default settings. In the log file, you can see the entire call. Note that the Rscript step does not produce a log file.
+In this case, the primer sequences had been mostly trimmed off along with the adapters during basecalling, and there was very low quality, so we adjusted the options, with no headcropping (-c 0) and only one base of "adapter overlap" (-o 1) which can incorrectly tag a sequence that didn't contain part of the primers used, but thats what we were dealing with in this particular case... For the most part I've only modified options that deviate from default settings. In the log file, you can see the entire call. Note that the Rscript step does not produce a log file.
 ```
 bash trim_and_sort.sh -p ITS1F4 -q 10 -m 150 -c 0 -o 1
 bash quick_dirty_minimap.sh -p ITS1F4 -d ~/sh_general_release_dynamic_s_all_04.04.2024_dev.fasta
