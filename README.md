@@ -34,6 +34,7 @@ MIMP is built from a preliminary version that can be used to assemble reads for 
 
 For Workflow (a) - "quick and dirty"
 ------------------------------------
+* Linux, a mac, or some platform where you can run bash (virtual machine, docker, etc.)
 * nanofilt and NanoPlot
 * cutadapt
 * minimap2
@@ -99,6 +100,8 @@ module load MAFFT/7.520-GCC-12.3.0-with-extensions
 module load Mothur/1.48.0-foss-2023a-Python-3.11.3
 ```
 
+>You'll also want to install the UNITE database or whatever reference database you need to supply to minimap2 (SILVA, custom refseq, etc). In the following instance, its in my home folder (~). 
+
 That should be everything you need! If doing this on a job node, you will need to write a submission script. You can include the module load code in the script but may want to test it out first.
 
 Needed for workflows (b) - "de novo" & (c) "Sanger"
@@ -124,28 +127,55 @@ make_phyloseq.R ITS1F4 UNITE
 dnadist
 ```
 
->You'll also want to install the UNITE database. In the following instance, its in my home folder (~). 
-
 ### Example protocol
 
-In this case, the primer sequences had been mostly trimmed off along with the adapters during basecalling, and there was very low quality, so we adjusted the options, with no headcropping (-c 0) and only one base of "adapter overlap" (-o 1) which can incorrectly tag a sequence that didn't contain part of the primers used, but thats what we were dealing with in this particular case... For the most part I've only modified options that deviate from default settings. In the log file, you can see the entire call. Note that the Rscript step does not produce a log file.
-```
-bash trim_and_sort.sh -p ITS1F4 -q 10 -m 150 -c 0 -o 1
-bash quick_dirty_minimap.sh -p ITS1F4 -d ~/sh_general_release_dynamic_s_all_04.04.2024_dev.fasta
-bash get_minimap_output.sh -p ITS1F4
-Rscript make_phyloseq.R ITS1F4 UNITE
-```
+1. First, you'll need to download this repository to your home directory (~) or wherever you are running the pipeline (HPCU, desktop, etc.). You can then download this directory
+	```
+	git clone https://github.com/usfsipsentinelnetwork/MIMP_Beta
+	```
 
-Once you load this into R, you can generate a plot as follows:
-```
-library(dplyr)
-library(phyloseq)
-tax_table(psobj) <- tax_table(psobj)[,-c(1:2)]
-psobj %>% prune_taxa(rownames(tax_table(psobj))!='1',.) %>% microbiome::aggregate_taxa(level = 'ta8') %>% microViz::comp_barplot(tax_level = 'ta8')
-```
+> I recommend changing the name of the directory to your project
+	```
+	mv MIMP_Beta Your_project_directory_name
+	```
 
-This produced the following output
-![Example of figure from output](https://raw.githubusercontent.com/usfsipsentinelnetwork/MIMP_Beta/refs/heads/main/example_figure.png)
+2. Next, you'll want your sequences in individual folders within it. Assuming you are doing this from the same directory that that project is in,
+	```
+	cp Folder_containing_your_barcode_folders_with_fastq_files_in_them/barcode* MIMP_Beta Your_project_directory_name/Scripts/
+	```
+
+3. Then, you're going to want to make sure they are unzipped. If they aren't move into the directory and do it.
+	```
+	cd MIMP_Beta Your_project_directory_name/Scripts/
+	```
+	
+	And then one of the following, depending on the extension. If they already end in fastq, you should be alright...
+	```
+	unzip barcode*/*.zip
+	gzip -d barcode*/*.gz
+	tar xvf barcode*/*.tar
+	```
+
+4. Make sure you edit primer_seqs.sh below if necessary, or find the name of the primer pair if its already in there to pass as an option (-p) to the bash scripts.
+
+5. Run the pipeline. In this case, the primer sequences had been mostly trimmed off along with the adapters during basecalling, and there was very low quality, so we adjusted the options, with no headcropping (-c 0) and only one base of "adapter overlap" (-o 1) which can incorrectly tag a sequence that didn't contain part of the primers used, but thats what we were dealing with in this particular case... For the most part I've only modified options that deviate from default settings. In the log file, you can see the entire call. Note that the Rscript step does not produce a log file.
+	```
+	bash trim_and_sort.sh -p ITS1F4 -q 10 -m 150 -c 0 -o 1
+	bash quick_dirty_minimap.sh -p ITS1F4 -d ~/sh_general_release_dynamic_s_all_04.04.2024_dev.fasta
+	bash get_minimap_output.sh -p ITS1F4
+	Rscript make_phyloseq.R ITS1F4 UNITE
+	```
+
+6. Once you load this into R, you can generate a plot as follows:
+	```
+	library(dplyr)
+	library(phyloseq)
+	tax_table(psobj) <- tax_table(psobj)[,-c(1:2)]
+	psobj %>% prune_taxa(rownames(tax_table(psobj))!='1',.) %>% microbiome::aggregate_taxa(level = 'ta8') %>% microViz::comp_barplot(tax_level = 'ta8')
+	```
+
+	This produced the following output
+	![Example of figure from output](https://raw.githubusercontent.com/usfsipsentinelnetwork/MIMP_Beta/refs/heads/main/example_figure.png)
 
 ### 0. primer_seqs.sh
 
