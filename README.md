@@ -29,7 +29,7 @@ MIMP will (eventually) also support:
 **2. "De Novo" which uses preliminary UNITE alignments to inform within-taxon clustering**
 (based on rarefied subsample of sequences) and re-alignment to resulting consensus sequences which can be BLASTed to a custom database (ie NCBI), for long-read amplicon metabarcoding. 
 
-	> **NOTE: MIMP "de novo" (2) is not yet fully implemented (bugs to resolve and final steps not yet complete):
+> **NOTE: MIMP "de novo" (2) is not yet fully implemented (bugs to resolve and final steps not yet complete):
 
 The above builds on an earlier tool I have also developed,
 
