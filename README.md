@@ -23,7 +23,7 @@ MIMP (MinIon Metabarcoding Pipeline) features executable shell scripts to which 
 Currently the implementation is simple. MIMP only currently supports a basic high level (ie >= genus) amplicon pipeline
 
 1. "Quick & Dirty" which relies solely on alignment to the UNITE database.
-	>- **NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete):
+	> **NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete):
 
 MIMP will also support
 
