@@ -24,9 +24,9 @@ Currently the implementation is simple. MIMP only currently supports a basic hig
 
 **1. "Quick & Dirty" which relies solely on alignment to the UNITE database.**
 
-MIMP will also support
+MIMP will also support:
 
-**2. "De Novo" which uses preliminary UNITE alignments to inform within-taxon clustering **
+**2. "De Novo" which uses preliminary UNITE alignments to inform within-taxon clustering**
 (based on rarefied subsample of sequences) and re-alignment to resulting consensus sequences which can be BLASTed to a custom database (ie NCBI), for long-read amplicon metabarcoding. MIMP also supports
 	> **NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete):
 
