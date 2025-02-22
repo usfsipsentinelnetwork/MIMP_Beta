@@ -18,7 +18,7 @@ LAST UPDATED FEB 21 2025
 
 ## I. About 
 
-MIMP (MinIon Metabarcoding Pipeline) features executable shell scripts (written in the BASH programming langauge) and R scripts to which one can pass arguments to augment a basic metabarcoding pipeline for processing multiplexed amplicon data from ONT MinIon, after basecalling.
+MIMP (MinIon Metabarcoding Pipeline) features executable shell scripts (written in the BASH programming langauge) and R scripts, runnable on a Linux commandline, to which one can pass arguments to augment a basic metabarcoding pipeline for processing multiplexed amplicon data from ONT MinIon, after basecalling.
 
 Currently the implementation is simple. MIMP only currently supports a basic high level (ie >= genus) amplicon pipeline
 
