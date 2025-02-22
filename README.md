@@ -298,7 +298,7 @@ This script does the following
 -i infile='all_filt_reorient.fasta'  - name of input fasta file in each barcode folder
 -b barcode_threads=4                 - number of minimaps to run independently (total cpus = b * t)
 -t minimap_threads=4                 - number of minimap threads to tell minimap run in each minimap instance
--P minimap_path="/vol3/home/ec2-user/minimap2-2.24_x64-linux"
+-P minimap_path='minimap2'
 ```
 
 #### Output files:
