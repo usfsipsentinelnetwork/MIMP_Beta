@@ -33,7 +33,7 @@ MIMP will also support:
 MIMP is built from a preliminary version that can be used to assemble reads for Sanger-like purposes, while dealing with contaminants (which is not possible with Sanger). This functionality makes it well suited for sequencing from fungi in situ, provided a low level of contamination by other fungi:
 
 **3. processing amplicon data from single-sample libraries:**
-[MIMP "Sanger"](usfsipsentinelnetwork/MinIon_Sanger_Beta)
+[MIMP "Sanger"](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta)
 
 ## II. Dependencies
 
@@ -50,7 +50,7 @@ For Workflow (1) - "quick and dirty"
 	* tidyr
 
 
-For Workflow (2) - "de novo" and Workflow (3): [MIMP "Sanger"](usfsipsentinelnetwork/MinIon_Sanger_Beta)
+For Workflow (2) - "de novo" and Workflow (3): [MIMP "Sanger"](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta)
 -----------------------------------
 
 * mafft    - may need mpi version
@@ -537,9 +537,9 @@ iv.     *.cons.denovo.python.fasta  - final seq file
         *.cons.data                 - data file
 ```
 
-## c) MIMP "Sanger"
+## c) [MIMP "Sanger"](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta)
 -------------------
 
-A pipeline for assembly of sanger sequences from MinIon. The original pipeline is published here: usfsipsentinelnetwork/MinIon_Sanger_Beta...
+A pipeline for assembly of sanger sequences from MinIon. The original pipeline is published [here](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta)
 
 LAST UPDATED FEB 21 2025
