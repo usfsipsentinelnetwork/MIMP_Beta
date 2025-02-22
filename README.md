@@ -185,13 +185,13 @@ dnadist
 	This produced the following output
 	![Example of figure from output](https://raw.githubusercontent.com/usfsipsentinelnetwork/MIMP_Beta/refs/heads/main/example_figure.png)
 
-### *0. primer_seqs.sh*
+### 0. *primer_seqs.sh*
+>This is not a command to run; this file contains all the information about primers and primer sequences that you may want to select from using the command line call; this script can be edited to add additional information in the same format that it is set up for GNU BASH langauge.
 
 #### Usage:
 NA
 
 #### Description:
->This is not a command to run; this file contains all the information about primers and primer sequences that you may want to select from using the command line call; this script can be edited to add additional information in the same format that it is set up for GNU BASH langauge.
 
 Each primer set (F and R) is given a number; here is the format used to specify seq, rev comp seq, and length min and max parameters:
 ```
@@ -207,7 +207,7 @@ PRODUCT_LENGTH_MIN[4]="300"
 PRODUCT_LENGTH_MAX[4]="1200"
 ```
 
-### 1. trim_and_sort.sh
+### 1. *trim_and_sort.sh*
 
 #### Usage:
 
@@ -265,7 +265,7 @@ barcodeXX/all_filt_concatenated.fasta (before cutadapt)
 barcodeXX/primer_pair/all_filt_reorient.fasta
 ```
 
-### 2. quick_dirty_minimap.sh
+### 2. *quick_dirty_minimap.sh*
 
 #### Usage:
 ```
@@ -311,7 +311,7 @@ barcodeXX/primer_pair/all_filt.samview.tsv (samtools view output)
 barcodeXX/primer_pair/relabund_phred_q10.csv (database accession - like an OTU - raw abundance table)
 ```
 
-### 3. get_minimap_output.sh
+### 3. *get_minimap_output.sh*
 
 #### Usage:
 ```
@@ -335,7 +335,7 @@ This reads in the minimap csv output from each folder and copies them all to a n
 ./minimap_primer_pair/*.barcodeXX.csv
 ```
 
-### 4. make_phyloseq.R
+### 4. *make_phyloseq.R*
 >** required for future steps, but does not write to session log file
 
 #### Usage:
@@ -365,7 +365,7 @@ outfilename.RData
 
 MIMP "De Novo": use preliminary UNITE alignments to inform within-taxon clustering (based on rarefied subsample of sequences) and re-alignment to resulting consensus sequences which can be BLASTed to a custom database (ie NCBI), for long-read amplicon metabarcoding
 
-### 5. aggregate_minimap_bytaxon.sh
+### 5. *aggregate_minimap_bytaxon.sh*
 >**NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete)
 
 #### Usage:
@@ -403,7 +403,7 @@ cluster_by_taxon/taxid_seqid.tsv
 cluster_by_taxon/fasta_folder/cluster_xxx.fa
 ```
 
-#### 5a. cluster_by_taxon_p1_parallel.R
+#### 5a. *cluster_by_taxon_p1_parallel.R*
 >**NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete)
 
 ##### Usage:
@@ -428,7 +428,7 @@ Tabulates seqids by taxon and outputs them to a file
 cluster_by_taxon/taxid_seqid.tsv
 ```
 			
-#### 5b. cluster_by_taxon_p2_parallel.R	
+#### 5b. *cluster_by_taxon_p2_parallel.R*
 >**NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete)
 
 ##### Usage:
@@ -458,7 +458,7 @@ Uses output from p2 to aggregate sequences at the desired taxonomic and rarefact
 cluster_by_taxon/fasta_folder/cluster_xxx.fa
 ```
 
-### 6. align_and_cluster_subtaxon.sh
+### 6. *align_and_cluster_subtaxon.sh*
 >**NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete)
 
 #### Usage:
