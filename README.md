@@ -35,6 +35,8 @@ MIMP is built from a preliminary version that can be used to assemble reads for 
 **3. processing amplicon data from single-sample libraries:**
 [MinIon_Sanger_Beta](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta)
 
+The nice thing about MinIon_Sanger is it is applicable to Sanger-like applications. However, it can handle a fair amount of amplified contaminants, whose sequences are assembled. It can also handle pooling multiple amplicon reactions (with different primers) into common libraries. For example, it will produce clean consensus sequences from direct PCR or PCR of a raw extraction from a fungal fruiting body. It can also handle potential cross contamination that may arise during library preparation. It automatically assemble nematodes and other invertebrates amplified with DNA extracted from bark beetles. And it will assemble mycoparasites or other fungal DNA from mixed cultures, in addition to the target organism.
+
 ## II. Dependencies
 
 For Workflow (1) - "quick and dirty"
