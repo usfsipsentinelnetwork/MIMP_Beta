@@ -22,7 +22,7 @@ MIMP (MinIon Metabarcoding Pipeline) features executable shell scripts to which 
 
 Currently the implementation is simple. MIMP only currently supports a basic high level (ie >= genus) amplicon pipeline
 
-1. "Quick & Dirty" which relies solely on alignment to the UNITE database.
+**1. "Quick & Dirty" which relies solely on alignment to the UNITE database.**
 
 MIMP will also support
 
@@ -185,7 +185,7 @@ dnadist
 	This produced the following output
 	![Example of figure from output](https://raw.githubusercontent.com/usfsipsentinelnetwork/MIMP_Beta/refs/heads/main/example_figure.png)
 
-### 0. primer_seqs.sh
+*### 0. primer_seqs.sh*
 
 #### Usage:
 NA
