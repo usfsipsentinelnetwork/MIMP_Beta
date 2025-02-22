@@ -178,7 +178,7 @@ dnadist
 	Rscript make_phyloseq.R ITS1F4 UNITE
 	```
 
-6. Once you load this into R, you can generate a plot as follows (note this requires R packages [dplyr](https://dplyr.tidyverse.org/), [phyloseq](https://joey711.github.io/phyloseq/), [microViz](https://david-barnett.github.io/microViz/), and [microbiome](https://github.com/microbiome/microbiome):
+6. Once you load this into R, you can generate a plot as follows (note this requires R packages [dplyr](https://dplyr.tidyverse.org/), [phyloseq](https://joey711.github.io/phyloseq/), [microViz](https://david-barnett.github.io/microViz/), and [microbiome](https://github.com/microbiome/microbiome)):
 
 	> NOTE: we are getting rid of columns in the taxonomy table that were introduced erroneously. Every database is different, and so the processing of minimap results can vary by database and database version. The script in this pipeline that reads parses the samtools output from minimap2 produces a phyloseq object where taxonomic ranks are named ta1, ta2, etc. We aggregated at the genus level, which is 'ta8' in this case...
 	```
