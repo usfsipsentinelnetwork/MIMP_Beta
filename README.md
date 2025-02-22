@@ -481,7 +481,7 @@ This script is a dynamic command that performs several tasks to ulimately cluste
 i.a.1   taxon_alignments/*.maf
 i.a.2   distance_matrices/*.maf.dist
 i.b     output_mothur_directory/*.phylip.dist
-ii.	    *.rabund [NOTE: need to implement directory specification]
+ii.     *.rabund [NOTE: need to implement directory specification]
         *.sabund [NOTE: need to implement directory specification]
         *.list [NOTE: need to implement directory specification]
 iii.    *.an.[cutoff].fasta [NOTE: need to implement directory specification]
