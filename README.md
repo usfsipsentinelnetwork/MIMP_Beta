@@ -40,28 +40,28 @@ MIMP is built from a preliminary version that can be used to assemble reads for 
 For Workflow (1) - "quick and dirty"
 ------------------------------------
 * Linux, a mac, or some platform where you can run bash (virtual machine, docker, etc.)
-* nanofilt and NanoPlot
-* cutadapt
-* minimap2
-* samtools
-* python   - check is likely already loaded/installed
-* R (and various R packages)
-	* dplyr (NOTE: early versions needed dplyr-devel but should not any more)
-	* tidyr
+* [nanofilt](https://github.com/wdecoster/nanofilt) and [NanoPlot](https://github.com/wdecoster/NanoPlot)
+* [cutadapt](https://cutadapt.readthedocs.io/en/stable/)
+* [minimap2](https://github.com/lh3/minimap2)
+* [samtools](http://www.htslib.org/)
+* [python](https://www.python.org/)   - check is likely already loaded/installed
+* [R](https://www.r-project.org/) (and various R packages)
+	* [dplyr](https://dplyr.tidyverse.org/) (NOTE: early versions needed dplyr-devel but should not any more)
+	* [tidyr](https://tidyr.tidyverse.org/)
 
 
 For Workflow (2) - "de novo" and Workflow (3): [MIMP "Sanger"](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta)
 -----------------------------------
 
-* mafft    - may need mpi version
-* mothur
+* [mafft](https://mafft.cbrc.jp/alignment/server/index.html)    - may need mpi version
+* [mothur](https://mothur.org/)
 * Additional R packages
-	* BiocManager
-		* Biostrings (not on CRAN, BiocManager::install("BioStrings") - need BiocManager package)
-		* phyloseq (not on CRAN, BiocManager::install("phyloseq") - need BiocManager package)
-		* progress
-		* foreach
-		* doSNOW
+	* [Bioconductor](https://www.bioconductor.org/)
+		* [Biostrings](https://bioconductor.org/packages/release/bioc/html/Biostrings.html) (not on CRAN, BiocManager::install("BioStrings") - need BiocManager package)
+		* [phyloseq](https://joey711.github.io/phyloseq/) (not on CRAN, BiocManager::install("phyloseq") - need BiocManager package)
+	* [progress](https://github.com/r-lib/progress)
+	* [foreach](https://cran.r-project.org/web/packages/foreach/index.html)
+	* [doSNOW](https://cran.r-project.org/web/packages/doSNOW/index.html)
 
 
 Notes for MSU ICER users for installation on development nodes (2/20/2025)
