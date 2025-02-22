@@ -24,12 +24,14 @@ Currently the implementation is simple. MIMP only currently supports a basic hig
 
 **1. "Quick & Dirty" which relies solely on alignment to the UNITE database.**
 
-MIMP will also support:
+MIMP will (eventually) also support:
 
 **2. "De Novo" which uses preliminary UNITE alignments to inform within-taxon clustering**
-(based on rarefied subsample of sequences) and re-alignment to resulting consensus sequences which can be BLASTed to a custom database (ie NCBI), for long-read amplicon metabarcoding. MIMP also supports
+(based on rarefied subsample of sequences) and re-alignment to resulting consensus sequences which can be BLASTed to a custom database (ie NCBI), for long-read amplicon metabarcoding. 
 
 	> **NOTE: MIMP "de novo" (2) is not yet fully implemented (bugs to resolve and final steps not yet complete):
+
+The above builds on an earlier tool I have also developed to support:
 
 **3. [MinIon_Sanger_Beta](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta): Processing amplicon data from one to many single-sample amplicon reactions pooled in the same libraries (with contamination)**
 
