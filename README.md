@@ -439,7 +439,7 @@ This script is a dynamic command that performs several tasks to ulimately cluste
 >(note some options are currently applied for different specifications in multiple steps):
 			
 ###### General Options:
-````
+```
 -P mothur_path='~/mothur/mothur'
 -i input_fasta_directory='taxon_cluster' 		- input directory for mothur to look for fasta files
 -o output_mothur_directory='distance_matrices' 	- directory where mothur saves output files (may need to change depending on steps being run)
