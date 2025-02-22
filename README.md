@@ -60,10 +60,6 @@ For Workflow (b) - "de novo" and Workflow (3): [MIMP "Sanger"](usfsipsentinelnet
 Notes for MSU ICER users for installation on development nodes (2/20/2025)
 --------------------------------------------------------------------------
 
-You will need the executable, dnadist from phylip. Download it directly with the following command
-```
-wget -O dnadist https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta/raw/refs/heads/main/Final_scripts/dnadist
-```
 	
 You may run into issues loading the modules below but this should work on ICER (MSU). If not, check the output and try the different versions. This order worked on 2/20/2025 on devel node dev-amd24. Then you should be able to load the following (note these depend on gcc version 12.3). Run the following code in this order to load the dependencies
 The first time you run this you should do this.
@@ -107,7 +103,10 @@ That should be everything you need! If doing this on a job node, you will need t
 Needed for workflows (b) - "de novo" & (c) "Sanger"
 ---------------------------------------------------
 * All of the above
-* Also needed: dnadist (from phylip - available as binary at usfsipsentinelnetwork/MinIon_Sanger_Beta)
+* Also needed: dnadist (from phylip - available as binary at [MinIon_Sanger_Beta](usfsipsentinelnetwork/MinIon_Sanger_Beta). You will need the executable, dnadist from phylip. Download it directly with the following command
+	```
+	wget -O dnadist https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta/raw/refs/heads/main/Final_scripts/dnadist
+	```
 
 # III. Workflows 
 
