@@ -138,7 +138,7 @@ dnadist
 
 2. Next, you'll want your sequences in individual folders within it. Assuming you are doing this from the same directory that that project is in,
 	```
-	cp Folder_containing_your_barcode_folders_with_fastq_files_in_them/barcode* MIMP_Beta Your_project_directory_name/Scripts/
+	cp Folder_containing_your_barcode_folders_with_fastq_files_in_them/barcode* Your_project_directory_name/Scripts/
 	```
 
 3. Then, you're going to want to make sure they are unzipped. If they aren't move into the directory and do it.
