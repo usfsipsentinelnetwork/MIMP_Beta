@@ -31,7 +31,7 @@ MIMP will (eventually) also support:
 
 	> **NOTE: MIMP "de novo" (2) is not yet fully implemented (bugs to resolve and final steps not yet complete):
 
-The above builds on an earlier tool I have also developed to support:
+The above builds on an earlier tool I have also developed,
 
 **3. [MinIon_Sanger_Beta](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta): Processing amplicon data from one to many single-sample amplicon reactions pooled in the same libraries (with contamination)**
 
