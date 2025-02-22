@@ -89,13 +89,6 @@ module load SAMtools/1.18-GCC-12.3.0
 export PATH=$(pwd)/.local/bin:$PATH
 ```
 
-For the MIMP "de novo" only (see below), you will need mafft and mothur. After the above, load them as follows...
-
-```
-module load MAFFT/7.520-GCC-12.3.0-with-extensions
-module load Mothur/1.48.0-foss-2023a-Python-3.11.3
-```
-
 >You'll also want to install the UNITE database or whatever reference database you need to supply to minimap2 (SILVA, custom refseq, etc). In the following instance, its in my home folder (~). 
 
 That should be everything you need! If doing this on a job node, you will need to write a submission script. You can include the module load code in the script but may want to test it out first.
@@ -103,6 +96,11 @@ That should be everything you need! If doing this on a job node, you will need t
 Needed for workflows (b) - "de novo" & (c) "Sanger"
 ---------------------------------------------------
 * All of the above
+* For the MIMP "de novo" only (see below), you will need mafft and mothur. After the above, load them as follows...
+	```
+	module load MAFFT/7.520-GCC-12.3.0-with-extensions
+	module load Mothur/1.48.0-foss-2023a-Python-3.11.3
+	```
 * Also needed: dnadist (from phylip - available as binary at [MinIon_Sanger_Beta](usfsipsentinelnetwork/MinIon_Sanger_Beta). You will need the executable, dnadist from phylip. Download it directly with the following command
 	```
 	wget -O dnadist https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta/raw/refs/heads/main/Final_scripts/dnadist
