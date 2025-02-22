@@ -48,19 +48,21 @@ For Workflow (1) - "quick and dirty"
 * R (and various R packages)
 	* dplyr (NOTE: early versions needed dplyr-devel but should not any more)
 	* tidyr
-	* BiocManager
-		* Biostrings (not on CRAN, BiocManager::install("BioStrings") - need BiocManager package)
-		* phyloseq (not on CRAN, BiocManager::install("phyloseq") - need BiocManager package)
-	* May need only for b & c (check to verify)
-		* progress
-		* foreach
-		* doSNOW
+
 
 For Workflow (2) - "de novo" and Workflow (3): [MIMP "Sanger"](usfsipsentinelnetwork/MinIon_Sanger_Beta)
 -----------------------------------
 
 * mafft    - may need mpi version
 * mothur
+* Additional R packages
+	* BiocManager
+		* Biostrings (not on CRAN, BiocManager::install("BioStrings") - need BiocManager package)
+		* phyloseq (not on CRAN, BiocManager::install("phyloseq") - need BiocManager package)
+		* progress
+		* foreach
+		* doSNOW
+
 
 Notes for MSU ICER users for installation on development nodes (2/20/2025)
 --------------------------------------------------------------------------
