@@ -167,11 +167,16 @@ dnadist
 	```
 
 6. Once you load this into R, you can generate a plot as follows:
+
+	> NOTE: we are getting rid of columns in the taxonomy table that were introduced erroneously. Every database is different, and so the processing of minimap results can vary by database and database version. The script in this pipeline that reads parses the samtools output from minimap2 produces a phyloseq object where taxonomic ranks are named ta1, ta2, etc. We aggregated at the genus level, which is 'ta8' in this case...
 	```
 	library(dplyr)
 	library(phyloseq)
 	tax_table(psobj) <- tax_table(psobj)[,-c(1:2)]
-	psobj %>% prune_taxa(rownames(tax_table(psobj))!='1',.) %>% microbiome::aggregate_taxa(level = 'ta8') %>% microViz::comp_barplot(tax_level = 'ta8')
+	psobj %>%
+		prune_taxa(rownames(tax_table(psobj))!='1',.) %>%
+		microbiome::aggregate_taxa(level = 'ta8') %>%
+		microViz::comp_barplot(tax_level = 'ta8')
 	```
 
 	This produced the following output
