@@ -26,12 +26,12 @@ Currently the implementation is simple. MIMP only currently supports a basic hig
 
 MIMP will also support
 
-2. "De Novo" which uses preliminary UNITE alignments to inform within-taxon clustering (based on rarefied subsample of sequences) and re-alignment to resulting consensus sequences which can be BLASTed to a custom database (ie NCBI), for long-read amplicon metabarcoding. MIMP also supports
+**2. "De Novo" which uses preliminary UNITE alignments to inform within-taxon clustering ** (based on rarefied subsample of sequences) and re-alignment to resulting consensus sequences which can be BLASTed to a custom database (ie NCBI), for long-read amplicon metabarcoding. MIMP also supports
 	> **NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete):
 
 MIMP is built from a preliminary version that can be used to assemble reads for Sanger-like purposes, while dealing with contaminants (which is not possible with Sanger). This functionality makes it well suited for sequencing from fungi in situ, provided a low level of contamination by other fungi:
 
-3. processing amplicon data from single-sample libraries: [MIMP "Sanger"](usfsipsentinelnetwork/MinIon_Sanger_Beta)
+**3. processing amplicon data from single-sample libraries:** [MIMP "Sanger"](usfsipsentinelnetwork/MinIon_Sanger_Beta)
 
 ## II. Dependencies
 
@@ -185,7 +185,7 @@ dnadist
 	This produced the following output
 	![Example of figure from output](https://raw.githubusercontent.com/usfsipsentinelnetwork/MIMP_Beta/refs/heads/main/example_figure.png)
 
-*### 0. primer_seqs.sh*
+### *0. primer_seqs.sh*
 
 #### Usage:
 NA
