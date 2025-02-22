@@ -476,14 +476,21 @@ bash align_and_cluster_subtaxon.sh [-t subtaxon_alignment_threads] [-m mafft_thr
 
 #### Description:
 This script is a dynamic command that performs several tasks to ulimately cluster and generate consensus sequences:
-1. generates mafft alignment-based OR mothur pairwise.dist-based distance matrices
-	1 .a.1 mafft
-	1 .a.2 phylip dna.dist
-		OR
-	1 .b mothur pairwise.dist
-2. from distances in (i), "subtaxon" clustering with mothur cluster.classic [NOTE: need to implement directory specification]
-3. "bin seqs" with mothur bin.seqs at the chosen distance cutoff label
-4.  subsequent alignments of sequences within the subtaxon clusters and generation of consensus sequences
+i. Generates mafft alignment-based OR mothur pairwise.dist-based distance matrices
+
+	i.a.1 mafft
+	
+	i.a.2 phylip dna.dist
+	
+	OR
+	
+	i.b mothur pairwise.dist
+
+ii. from distances in (i), "subtaxon" clustering with mothur cluster.classic [NOTE: need to implement directory specification]
+
+iii. "bin seqs" with mothur bin.seqs at the chosen distance cutoff label
+
+iv.  subsequent alignments of sequences within the subtaxon clusters and generation of consensus sequences
 			
 #### Options
 >(note some options are currently applied for different specifications in multiple steps):
