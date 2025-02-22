@@ -55,6 +55,7 @@ For Workflow (2) - "de novo" and Workflow (3): [MIMP "Sanger"](https://github.co
 
 * [mafft](https://mafft.cbrc.jp/alignment/server/index.html)    - may need mpi version
 * [mothur](https://mothur.org/)
+* dnadist from [phylip](https://phylipweb.github.io/phylip/)
 * Additional R packages
 	* [Bioconductor](https://www.bioconductor.org/)
 		* [Biostrings](https://bioconductor.org/packages/release/bioc/html/Biostrings.html) (not on CRAN, BiocManager::install("BioStrings") - need BiocManager package)
