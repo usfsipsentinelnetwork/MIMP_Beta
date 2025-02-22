@@ -20,7 +20,7 @@ MIMP (MinIon Metabarcoding Pipeline) features executable shell scripts to which 
 Currently the implementation is simple. MIMP only currently supports a basic high level (ie >= genus) amplicon pipeline
 
 1. "Quick & Dirty" which relies solely on alignment to the UNITE database.
-	- **NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete):
+	>- **NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete):
 
 MIMP will also support
 
@@ -151,7 +151,7 @@ This produced the following output
 NA
 
 #### Description:
-This is not a command to run; this file contains all the information about primers and primer sequences that you may want to select from using the command line call; this script can be edited to add additional information in the same format that it is set up for GNU BASH langauge.
+>This is not a command to run; this file contains all the information about primers and primer sequences that you may want to select from using the command line call; this script can be edited to add additional information in the same format that it is set up for GNU BASH langauge.
 
 Each primer set (F and R) is given a number; here is the format used to specify seq, rev comp seq, and length min and max parameters:
 ```
@@ -294,7 +294,7 @@ This reads in the minimap csv output from each folder and copies them all to a n
 ```
 
 ### 4. make_phyloseq.R
-** required for future steps, but does not write to session log file
+>** required for future steps, but does not write to session log file
 
 #### Usage:
 ```
@@ -305,21 +305,26 @@ Rscript make_phyloseq.R [primer_pair*] [db*] [outfilename] [silva_path]
 Uses preliminary quick and dirty minimap2 to create an OTU and taxon table to make a phyloseq object
 
 #### Options (* required)
-		1 [primer_pair] - the primer pair name
-		2 [db]          - the database (currently supports =UNITE and =SILVA)
-		3 [outfilename] - name of .RData output file with phyloseq object
-		4 [silva_path]  - ***required if db=SILVA
+```
+1 [primer_pair] - the primer pair name
+2 [db]          - the database (currently supports =UNITE and =SILVA)
+3 [outfilename] - name of .RData output file with phyloseq object
+4 [silva_path]  - ***required if db=SILVA
+```
 
 #### Output:
-		outfilename.RData
+```
+outfilename.RData
+```
 
 ## b) MIMP "De Novo"
 --------------------
-**NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete)
+>**NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete)
 
 MIMP "De Novo": use preliminary UNITE alignments to inform within-taxon clustering (based on rarefied subsample of sequences) and re-alignment to resulting consensus sequences which can be BLASTed to a custom database (ie NCBI), for long-read amplicon metabarcoding
 
 ### 5. aggregate_minimap_bytaxon.sh
+>**NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete)
 
 #### Usage:
 
@@ -328,7 +333,6 @@ bash aggregate_minimap_bytaxon.sh [-p primer_pair] [-f phyloseq filename] [-l ta
 ```
 
 #### Description:
-
 Uses output from preliminary quick and dirty minimap2 to do run the following R scripts\
 (supplying the options given to it to the R scripts); descriptions and specs for R scripts below\
 
@@ -358,6 +362,7 @@ cluster_by_taxon/fasta_folder/cluster_xxx.fa
 ```
 
 #### **cluster_by_taxon_p1_parallel.R**
+>**NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete)
 
 ##### Usage:
 ```
@@ -365,7 +370,6 @@ Rscript cluster_by_taxon_p1.R [primer_pair] [infilename] [kingdom_column] [threa
 ```
 
 ##### Description:
-
 Tabulates seqids by taxon and outputs them to a file
 
 ##### Options:
@@ -383,6 +387,7 @@ cluster_by_taxon/taxid_seqid.tsv
 ```
 			
 #### cluster_by_taxon_p2_parallel.R	
+>**NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete)
 
 ##### Usage:
 ```
@@ -412,6 +417,7 @@ cluster_by_taxon/fasta_folder/cluster_xxx.fa
 ```
 
 #### 6. **align_and_cluster_subtaxon.sh**
+>**NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete)
 
 ##### Usage:
 ```
@@ -430,7 +436,7 @@ This script is a dynamic command that performs several tasks to ulimately cluste
 4.  subsequent alignments of sequences within the subtaxon clusters and generation of consensus sequences
 			
 ##### Options
-(note some options are currently applied for different specifications in multiple steps):
+>(note some options are currently applied for different specifications in multiple steps):
 			
 ###### General Options:
 ````
