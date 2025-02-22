@@ -23,11 +23,11 @@ MIMP (MinIon Metabarcoding Pipeline) features executable shell scripts to which 
 Currently the implementation is simple. MIMP only currently supports a basic high level (ie >= genus) amplicon pipeline
 
 1. "Quick & Dirty" which relies solely on alignment to the UNITE database.
-	> **NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete):
 
 MIMP will also support
 
 2. "De Novo" which uses preliminary UNITE alignments to inform within-taxon clustering (based on rarefied subsample of sequences) and re-alignment to resulting consensus sequences which can be BLASTed to a custom database (ie NCBI), for long-read amplicon metabarcoding. MIMP also supports
+	> **NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete):
 
 MIMP is built from a preliminary version that can be used to assemble reads for Sanger-like purposes, while dealing with contaminants (which is not possible with Sanger). This functionality makes it well suited for sequencing from fungi in situ, provided a low level of contamination by other fungi:
 
