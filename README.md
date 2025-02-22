@@ -157,7 +157,7 @@ dnadist
 
 5. Run the pipeline. In this case, the primer sequences had been mostly trimmed off along with the adapters during basecalling, and there was very low quality, so we adjusted the options, filtering at Q10, very low minimimum sequence length for full ITS (-m 150), with no headcropping (-c 0) and only one base of "adapter overlap" (-o 1) which can incorrectly tag a sequence that didn't contain part of the primers used, but thats what we were dealing with in this particular case... For the most part I've only modified options that deviate from default settings. In the log file, you can see the entire call. Note that the Rscript step does not produce a log file.
 
-	> NOTE: Typically, after the first step below (bash trim_and_sort.sh), you will want to look at the nanoplot results (.html files) and potentially rerun with adjusted options as needed. Also, as you can see from above, this pipeline might not produce results, and even through errors at you, if you are using default settings with very low quality or incorrectly or wierdly preprocessed/basecalled/demuiltiplexed sequences. Always know what was done in terms of the kit used, basecalling methods, etc. to streamline troubleshooting.
+	> NOTE: Typically, after the first step below (bash trim_and_sort.sh), you will want to look at the nanoplot results (.html files) and potentially rerun with adjusted options as needed. Also, as you can see from above, this pipeline might not produce results, and even throw errors at you, if you are using default settings with very low quality or incorrectly or wierdly preprocessed/basecalled/demuiltiplexed sequences. Always know what was done in terms of the kit used, basecalling methods, etc. to streamline troubleshooting.
 
 	```
 	bash trim_and_sort.sh -p ITS1F4 -q 10 -m 150 -c 0 -o 1
@@ -215,7 +215,7 @@ bash trim_and_sort.sh [-p primer_pair] [-q quality_cutoff] [-m min_length] [-M m
 #### Description:
 This script does the following
 1. runs nanoplot (summary and visualization of quality and length, distribution etc. after basecalling)
-	> NOTE: Typically, after trim_and_sort.sh, you will want to look at the nanoplot results (.html files) and potentially rerun with adjusted options as needed. Also, as you can see from above, this pipeline might not produce results, and even through errors at you, if you are using default settings with very low quality or incorrectly or wierdly preprocessed/basecalled/demuiltiplexed sequences. Always know what was done in terms of the kit used, basecalling methods, etc. to streamline troubleshooting.
+	> NOTE: Typically, after trim_and_sort.sh, you will want to look at the nanoplot results (.html files) and potentially rerun with adjusted options as needed. If you are using default settings with very low quality or incorrectly or wierdly preprocessed/basecalled/demuiltiplexed sequences, you may get errors. Always know what was done in terms of the kit used, basecalling methods, etc. to streamline troubleshooting.
 
 2. runs nanofilt (filters by q score, sequence length, and trims some reads like adapters from the reads)
 3. converts file to fasta format and shortens names of sequences in fasta sample headers for downstream compatibility
