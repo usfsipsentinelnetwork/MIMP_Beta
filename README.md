@@ -33,7 +33,7 @@ MIMP will also support:
 MIMP is built from a preliminary version that can be used to assemble reads for Sanger-like purposes, while dealing with contaminants (which is not possible with Sanger). This functionality makes it well suited for sequencing from fungi in situ, provided a low level of contamination by other fungi:
 
 **3. processing amplicon data from single-sample libraries:**
-[MIMP "Sanger"](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta)
+[MinIon_Sanger_Beta](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta)
 
 ## II. Dependencies
 
@@ -50,7 +50,7 @@ For Workflow (1) - "quick and dirty"
 	* [tidyr](https://tidyr.tidyverse.org/)
 
 
-For Workflow (2) - "de novo" and Workflow (3): [MIMP "Sanger"](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta)
+For Workflow (2) - "de novo" and Workflow (3): [MinIon_Sanger_Beta](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta)
 -----------------------------------
 
 * [mafft](https://mafft.cbrc.jp/alignment/server/index.html)    - may need mpi version
@@ -108,7 +108,7 @@ Needed only for workflows (2) - "de novo" & (3) "Sanger"
 	module load MAFFT/7.520-GCC-12.3.0-with-extensions
 	module load Mothur/1.48.0-foss-2023a-Python-3.11.3
 	```
-* Also needed: dnadist (from phylip - available as binary at [MinIon_Sanger_Beta](usfsipsentinelnetwork/MinIon_Sanger_Beta). You will need the executable, dnadist from phylip. Download it directly with the following command
+* Also needed: dnadist (from phylip - available as binary at [MinIon_Sanger_Beta](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta). You will need the executable, dnadist from phylip. Download it directly with the following command
 	```
 	wget -O dnadist https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta/raw/refs/heads/main/Final_scripts/dnadist
 	```
@@ -538,7 +538,7 @@ iv.     *.cons.denovo.python.fasta  - final seq file
         *.cons.data                 - data file
 ```
 
-## c) [MIMP "Sanger"](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta)
+## c) [MinIon_Sanger_Beta](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta)
 -------------------
 
 A pipeline for assembly of sanger sequences from MinIon. The original pipeline is published [here](https://github.com/usfsipsentinelnetwork/MinIon_Sanger_Beta)
