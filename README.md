@@ -177,7 +177,14 @@ make_phyloseq.R
 	Rscript make_phyloseq.R ITS1F4 UNITE
 	```
 
-6. Once you load this into R, you can generate a plot as follows (note this requires R packages [dplyr](https://dplyr.tidyverse.org/), [phyloseq](https://joey711.github.io/phyloseq/), [microViz](https://david-barnett.github.io/microViz/), and [microbiome](https://github.com/microbiome/microbiome)):
+6. (Added 5/27/2025): You may also wish to create a fasta file that indexes all the sequences by barcode and genus assignment. This file may end up being very large. You can first run the first part of aggregate_minimap_bytaxon.sh - which calls the first R script described under the "De novo" pipeline. Then you can run a second R script that uses the index files produced in the first R script to create one big fasta file.
+
+	```
+	sh aggregate_minimap_bytaxon.sh -p ITS54 -f minimap_ITS54/LM1_reprocessed_May19_2025.RData -l genus -k 3 -t 8 -T T -A F -F taxon_cluster -R F
+	sh make_joined_fasta.sh
+	```
+
+7. Once you load this into R, you can generate a plot as follows (note this requires R packages [dplyr](https://dplyr.tidyverse.org/), [phyloseq](https://joey711.github.io/phyloseq/), [microViz](https://david-barnett.github.io/microViz/), and [microbiome](https://github.com/microbiome/microbiome)):
 
 	> NOTE: we are getting rid of columns in the taxonomy table that were introduced erroneously. Every database is different, and so the processing of minimap results can vary by database and database version. The script in this pipeline that reads parses the samtools output from minimap2 produces a phyloseq object where taxonomic ranks are named ta1, ta2, etc. We aggregated at the genus level, which is 'ta8' in this case...
 	```
@@ -367,6 +374,10 @@ Uses preliminary quick and dirty minimap2 to create an OTU and taxon table to ma
 outfilename.RData
 ```
 
+## a) Obtain full fasta file with barcode and genus assignments
+
+
+
 ## b) MIMP "De Novo"
 --------------------
 >**NOTE: not yet fully implemented (bugs to resolve and final steps not yet complete)
@@ -397,8 +408,8 @@ Uses output from preliminary quick and dirty minimap2 to do run the following R 
 -t threads=8                - the number of threads to run
 -T tabulate_only='F'        - whether to only run cluster_by_taxon_p1_parallel.R, which produces a seqid-by-taxid table cluster_by_taxon/taxid_seqid.tsv
 -A aggregate_only='F'       - whether to only run cluster_by_taxon_p2_parallel.R, which does the aggregation by taxon and rarefaction
--R fasta_folder='taxon_cluster' - folder to which to save the taxon-aggregated, rarefied fasta files
--F resume='F'                   - a flag to tell the script to resume [?RESUME WHAT?] where it left off	
+-F fasta_folder='taxon_cluster' - folder to which to save the taxon-aggregated, rarefied fasta files
+-R resume='F'                   - a flag to tell the script to resume [?RESUME WHAT?] where it left off	
 -L session_log_file="[-p primer_pair].log" 
 		name of log file where you are keeping track of all the commands
 		you are running and with which parameters (automatically supplies

@@ -22,7 +22,7 @@
 
 #		General
 #			-p primer_pair='ITS1F4'				- the primer pair you want to use
-#			-x skip_to_cut_adapt='F'			- whether to skip nanoplot & nanofilt and go straight to cutadapt
+#			-s skip_to_cut_adapt='F'			- whether to skip nanoplot & nanofilt and go straight to cutadapt
 #			-L session_log_file="[-p primer_pair].log" 
 #				name of log file where you are keeping track of all the commands
 #				you are running and with which parameters (automatically supplies
@@ -61,6 +61,9 @@ nanoplot_each='T'
 cpu_cores=8
 skip_to_cut_adapt='F'
 session_log_file=""
+
+# preemptive support for combining data from multiple runs
+runid="A"
 
 # define a function to call if user asks linux to tell how to use the script
 print_usage(){
@@ -183,13 +186,25 @@ do
 				sed -n '1~4s/^@/>/p;2~4p' all_filt.fastq > all_filt.fasta
 				rm all.fastq all_filt.fastq
 				
+				#Fixed issue where this could potentially produce duplicates (across barcodes)
 				#e) shorten names of sequences to just 8 characters
-				sed 's/.//10g; n' all_filt.fasta > all_filt_concatenated.fasta
+				#sed 's/.//10g; n' all_filt.fasta > all_filt_concatenated.fasta
+				
+				# this is with just the number
+				#sed '/^>/s/^>\(.*read=\)\([0-9]\+\)\s.*/>\2/' all_filt.fasta > all_filt_concatenated.fasta
+				
+				# also: moved this to the cutadapt step...
+				
+				
 			else
 				echo "No fastq files in $folder. make sure they are decompressed."
 			fi
 		fi
 		echo "Running cutadapt on $folder for ${ARRAY_FOLDERS[index]}"
+
+		# preemptive support for combining data from multiple runs
+		#sed "/^>/s/^>\(.*read=\)\([0-9]\+\)\s.*/>${runid}_\2/" all_filt.fasta > all_filt_concatenated.fasta
+		sed -E "s/^>.*read=([0-9]+) ch=([0-9]+).*/>${runid}_\2_\1/" all_filt.fasta > all_filt_concatenated.fasta
 		
 		if [ -f "all_filt_concatenated.fasta" ]; then
 

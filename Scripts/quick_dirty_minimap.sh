@@ -182,7 +182,7 @@ do
 		cd $primer_pair
 		
 		# runs process_minimap2.R to convert that into a OTU table
-		Rscript ../../process_minimap2.R $quality_cutoff $minlen &
+		Rscript ../../process_minimap2.R 0 $minlen &
 		((COUNTER=COUNTER+1))
 		if (($COUNTER == $total_threads))
 		then

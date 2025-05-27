@@ -1,5 +1,4 @@
-#setwd("minimap_2023-10-23-164538")
-#x <- read.csv("relabund_phred_q10.barcode01.csv")
+# NOTE: currently only supports minimap2 output using UNITE 5-22-25
 
 # Usage: Rscript cluster_by_taxon_p1.R [primer_pair] [infilename] [kingdom_column] [threads]
 # required
@@ -13,6 +12,11 @@
 #				4 [threads]  		- number of threads to run
 			
 #			Output: cluster_by_taxon/taxid_seqid.tsv
+
+
+#setwd("minimap_2023-10-23-164538")
+#x <- read.csv("relabund_phred_q10.barcode01.csv")
+
 
 print("Loading R packages...")
 
@@ -49,15 +53,29 @@ threads <- as.numeric(args[4])
 #print(infilename)
 #quit()
 
+print(paste("Loading", infilename))
+
 load(infilename)
 #psobj %>% tax_table %>% head
 
+print(paste(infilename, "successfully loaded"))
+
+
 tax_table(psobj) <- tax_table(psobj)[,-c(1:(kingdom_column-1))]
-colnames(tax_table(psobj)) <- c('ta1','ta2','ta3','ta4','ta5','ta6','ta7')
+#colnames(tax_table(psobj)) <- c('ta1','ta2','ta3','ta4','ta5','ta6','ta7')
+colnames(tax_table(psobj)) <- c('Kingdom','Phylum','Class','Order','Family','Genus','Species')
 
-genera_families <- tax_table(psobj)[,dim(tax_table(psobj))[2]-2:1] %>% as.data.frame %>% na.omit %>% distinct
+#print("Renamed columns")
 
-genera <- tax_table(psobj)[,dim(tax_table(psobj))[2]-1]  %>% as.data.frame %>% na.omit %>% distinct
+# BOTH SHOULD WORK
+
+### OLD VERSION, KEEP USING ta1-7
+#genera_families <- tax_table(psobj)[,dim(tax_table(psobj))[2]-2:1] %>% as.data.frame %>% na.omit %>% distinct
+#genera <- tax_table(psobj)[,dim(tax_table(psobj))[2]-1]  %>% as.data.frame %>% na.omit %>% distinct
+
+### 5-22-25 FOR ALREADY-FORMATTED
+genera_families <- tax_table(psobj)[,c("Family","Genus")] %>% as.data.frame %>% na.omit %>% distinct
+genera <- tax_table(psobj)[,"Genus"]  %>% as.data.frame %>% na.omit %>% distinct
 
 tax_string <- tax_table(psobj)[,-dim(tax_table(psobj))[2]] %>% as.data.frame %>% na.omit %>% distinct
 
@@ -79,7 +97,8 @@ niters <- length(barcodes)
 chunks <- niters %/% threads
 
 for (chunk in 0:chunks) {
-
+#for (chunk in 1:chunks) {
+    
 	start0 <- 1 + threads*chunk
 	stop0 <- min(start0 + threads - 1, niters)
 
@@ -93,34 +112,78 @@ for (chunk in 0:chunks) {
 	opts <- list(progress=progress)
 
 	# cycle through the barcodes and taxa in parallel
-	output_table_chunk <- foreach(a=start0:stop0, .combine="rbind", .options.snow=opts) %dopar% {
+	output_table_chunk <- foreach(a=start0:stop0, .combine="rbind", .options.snow=opts, .packages = c('dplyr','tidyr')) %dopar% {
 		b <- barcodes[a]
 		if (b %in% dir() & primer_pair %in% dir(b) & "all_filt.samview.tsv" %in% dir(paste(b,primer_pair,sep="/"))) {
 
 			filename <- paste(b, "/", primer_pair, "/all_filt.samview.tsv", sep="")
-			x <- read.csv(filename, sep="\t", header=F, fill=T)
+			#x <- read.csv(filename, sep="\t", header=F, fill=T)
 
+			#### May 22 2025 corrected ####
+  			sam_lines <- readLines(filename)
+  			sam_data_lines <- sam_lines[!grepl("^@", sam_lines)]
+  			
+  			ntabs <- unlist(lapply(sam_data_lines, stringr::str_count, pattern = '\t'))
+  			#sam_data_lines[order(ntabs, decreasing=T)][1:3]
+  			
+  			# Convert to data.frame
+  			#library(data.table)
+  			#sam_out <- data.table::fread(text = sam_data_lines, header=FALSE, fill=T, sep='\t')
+  			
+  			x <- data.table::fread(text = sam_data_lines[order(ntabs, decreasing=T)], header=FALSE, fill=T, sep='\t')
+  			
+  			
+  			# Add column names from SAM spec
+  			colnames(x)[1:11] <- c("QNAME", "FLAG", "RNAME", "POS", "MAPQ", "CIGAR",
+  			                             "RNEXT", "PNEXT", "TLEN", "SEQ", "QUAL")
+  			
+  			x <- x[,c(1,2,3,4,5,10)]
+  			x$seqlen <- nchar(x$SEQ)
+  			if (length(which(x$seqlen < x$minlen))>0) {x <- x[-which(x$seqlen < x$minlen),]}
+  			x <- x[which(x$FLAG %in% c(0,4,16,32,64)),]
+  			
+  			# need to filter out higher scoring alignment per readid
+  			x <- x %>%
+  			  group_by(QNAME) %>%
+  			  mutate(maxscore = max(MAPQ), maxlen   = max(seqlen)) %>%
+  			  ungroup %>%
+  			  filter(MAPQ == maxscore) %>%
+  			  filter(seqlen == maxlen) %>%
+  			  select(-SEQ) %>%
+  			  distinct
+  			  
+  			x <- x %>%
+  			  separate(RNAME, remove = F, sep = '\\|', into = c("tax_unique","db","accession","accession_type","tax_string_full")) %>%
+  			  mutate(tax_string =
+  			           gsub("^(k__[A-Za-z_]+;p__[A-Za-z_]+;c__[A-Za-z_]+;o__[A-Za-z_]+;f__[A-Za-z_]+;g__[A-Za-z_]+)(;s__[A-Za-z_]+)$","\\1",tax_string_full, perl=T))
+  			
+			
 			print(paste("Reading taxids for", b, "(", dim(x)[1], "sequence reads )")) # this doesn't do anything - need to add to the "opts" function or something
 
-			outtab_part <- data.frame()
+			# MODIFIED 5-22-25
 
-			for(i in 1:dim(tax_string)[1]) {
-				z <- paste("k__", tax_string[i,1], ";p__", tax_string[i,2], ";c__", tax_string[i,3], ";o__", tax_string[i,4], ";f__", tax_string[i,5], ";g__", tax_string[i,6], sep="")
-				zi<- grep(z, x[,3])
-				if (length(zi)==0) next
-				seqs <- x[zi,1]
-				outtab_part <- rbind(outtab_part, data.frame(taxclusterid=i,barcode=b, seqid=seqs))
-			}
-			outtab_part
+			tax_string %>%
+			  mutate(tax_string=paste("k__", Kingdom,
+			                          ";p__", Phylum,
+			                          ";c__", Class,
+			                          ";o__", Order,
+			                          ";f__", Family,
+			                          ";g__", Genus, sep="")) %>%
+			  left_join(x,.) %>% mutate(barcode=b) %>%select(taxclusterid, barcode, QNAME)
 		}
 	}
+	
 	close(pb)
 	stopCluster(cl)
 	print(paste("Writing taxid and barcode for", dim(output_table_chunk)[1], "reads to file..."))
 
-	if (chunk == 0) {write.table(output_table_chunk, "cluster_by_taxon/taxid_seqid.tsv", quote=F, row.names=F)}
-	else {write.table(output_table_chunk, "cluster_by_taxon/taxid_seqid.tsv", quote=F, row.names=F, append=T, col.names=F)}
+	if (chunk == 0) {
+	  write.table(output_table_chunk, "cluster_by_taxon/taxid_seqid.tsv", quote=F, row.names=F)
+	} else {
+	  write.table(output_table_chunk, "cluster_by_taxon/taxid_seqid.tsv", quote=F, row.names=F, append=T, col.names=F)
+	}
 }
+
 final_output <- read.table("cluster_by_taxon/taxid_seqid.tsv", header=1) %>% distinct
 write.table(final_output, "cluster_by_taxon/taxid_seqid.tsv", quote=F, row.names=F)
 #with(read.table("taxid_seqid.tsv", header=1),write.table(cbind(seqid,seqid), 'seqids.names', quote=F, row.names=F, col.names=F))
