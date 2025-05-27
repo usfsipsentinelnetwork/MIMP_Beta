@@ -1,6 +1,6 @@
 # MIMP_Beta: MinIon Metabarcoding Pipeline
 
-LAST UPDATED FEB 21 2025
+LAST UPDATED 5/27/2025
 
 ```
 ++++++++++++++++++++++++++++++++++++++++++++
