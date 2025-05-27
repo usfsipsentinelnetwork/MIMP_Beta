@@ -184,6 +184,16 @@ make_phyloseq.R
 	sh make_joined_fasta.sh
 	```
 
+	This produces the output files:
+	
+	```
+	cluster_by_taxon/taxids.tsv
+	cluster_by_taxon/taxid_seqid.tsv
+	all_sequences.fasta
+	joined_fasta_barcodes_clusters.csv
+	joined_fasta_barcodes_taxonomy.fasta
+	```
+
 7. Once you load this into R, you can generate a plot as follows (note this requires R packages [dplyr](https://dplyr.tidyverse.org/), [phyloseq](https://joey711.github.io/phyloseq/), [microViz](https://david-barnett.github.io/microViz/), and [microbiome](https://github.com/microbiome/microbiome)):
 
 	> NOTE: we are getting rid of columns in the taxonomy table that were introduced erroneously. Every database is different, and so the processing of minimap results can vary by database and database version. The script in this pipeline that reads parses the samtools output from minimap2 produces a phyloseq object where taxonomic ranks are named ta1, ta2, etc. We aggregated at the genus level, which is 'ta8' in this case...
@@ -444,7 +454,9 @@ Tabulates seqids by taxon and outputs them to a file
 
 ##### Output:
 ```
+cluster_by_taxon/taxids.tsv
 cluster_by_taxon/taxid_seqid.tsv
+
 ```
 			
 #### 5b. *cluster_by_taxon_p2_parallel.R*
